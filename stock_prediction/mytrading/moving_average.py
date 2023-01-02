@@ -42,7 +42,6 @@ class MovingAverageDayTrading():
         plt.legend()
         return plt.show()
 
-
 if __name__ == '__main__':
     
     average = MovingAverageDayTrading('GOOG')
