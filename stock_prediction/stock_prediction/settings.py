@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.account', # new
     'allauth.socialaccount', # new
     'django_extensions',
+    'mytrading',
 ]
 
 MIDDLEWARE = [
