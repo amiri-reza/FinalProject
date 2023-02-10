@@ -1,18 +1,15 @@
-import dash
-from dash import dcc
-from dash import html
-import plotly.express as px
+
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import plotly.offline as plot
 import pandas as pd
 import numpy as np
-import yfinance as yf
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import yfinance as yf 
 from datetime import timedelta, datetime
 import time
 import talib as ta
-import pytz
+
+
 
 
 class MovingAverageDayTrading:
@@ -367,6 +364,7 @@ class MovingAverageDayTrading:
                     line=dict(width=2),
                 )
             )
+            
             fig.add_trace(
                 go.Scatter(x=df.index, y=df["EMA_10"], mode="lines", name="EMA_10")
             )
@@ -1349,7 +1347,10 @@ class MovingAverageDayTrading:
             )
 
             time.sleep(3600 / 2000)
-            return fig.show()
+            plt_div = plot(fig, output_type='div')
+            #return fig.show()
+            print(plt_div)
+            return plt_div
 
 
 if __name__ == "__main__":
