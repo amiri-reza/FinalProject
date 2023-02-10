@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
+from django.contrib.auth import forms
 
 
 class Home(TemplateView):
