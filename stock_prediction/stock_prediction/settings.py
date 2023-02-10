@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",  # new
     "django_extensions",
     "mytrading",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -146,5 +147,5 @@ LOGIN_REDIRECT_URL = "/home/"
 LOGIN_URL = "/accounts/login/"
 
 
-STATIC_URL = "/static/"
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "mytrading/"),)
+STATIC_URL = "static/"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
