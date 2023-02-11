@@ -29,7 +29,7 @@ class MovingAverageDayTrading:
             print(f"--------{df}__________")
             print(df.dtypes)
             print(f"index typeeeee : {df.index.dtype}")
-
+            
             # check the interval of your dataframe by using the df.resample function with the same interval of data you want to work with
             ## df.resample('1min')
 
@@ -1347,11 +1347,12 @@ class MovingAverageDayTrading:
             )
 
             time.sleep(3600 / 2000)
-            plt_div = plot(fig, output_type='div')
+            
+            #plt_div = plot(fig, output_type='div')
             #return fig.show()
-            print(plt_div)
-            return plt_div
-
+            #print(plt_div)
+            #return plt_div
+            return fig.to_html()
 
 if __name__ == "__main__":
     # CN Energy Group Inc.
@@ -1360,4 +1361,8 @@ if __name__ == "__main__":
     average = MovingAverageDayTrading(
         volatile_tickers[0], stop_loss=0.03, take_profit=0.15
     )
-    average.moving_average_timeframes()
+    #average.moving_average_timeframes()
+    ticker = yf.Ticker('GOOG')
+    print(ticker.fast_info.currency)
+
+
