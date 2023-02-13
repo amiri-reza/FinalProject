@@ -627,7 +627,7 @@ class MovingAverageDayTrading:
             fig.update_layout(
                 updatemenus=[
                     dict(
-                        type="buttons",
+                        type="dropdown",
                         buttons=[
                             dict(
                                 label="Candlestick",
@@ -1342,6 +1342,13 @@ class MovingAverageDayTrading:
                                 ],
                             ),
                         ],
+                        direction="down",
+                        pad={"r": 10, "t": 10},
+                        showactive=True,
+                        x=1,
+                        xanchor="left",
+                        y=1.2,
+                        yanchor="top"
                     )
                 ]
             )
