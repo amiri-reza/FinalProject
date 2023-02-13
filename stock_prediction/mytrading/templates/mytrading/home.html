@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <form action="" method="post">
         {% csrf_token %}
@@ -20,12 +22,11 @@
     </div>
   </div>
 
-  
   {% autoescape off %}
   {{ plt_div }}
   {% endautoescape %}
-  
-<hr>
+
+  <hr>
 <p> Buy and Sell Form Can Be Inserted HERE!</p>
 <hr>
 

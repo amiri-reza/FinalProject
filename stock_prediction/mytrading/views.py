@@ -2,10 +2,6 @@ from django.shortcuts import render
 from django.views.generic import FormView
 from mytrading.forms import StocksForm
 from mytrading.moving_average import MovingAverageDayTrading
-import plotly.offline as plot
-#from plotly.graph_objs import Scatter
-import plotly.graph_objects as go
-from plotly.graph_objects import Scatter
 import yfinance as yf
 
 
@@ -44,5 +40,10 @@ class StockFormView(FormView):
                 )
         else:
             form = StocksForm()
+
+    # def get(self, request):
+    #     #breakpoint()
+    #     if not request.GET:
+    #         pass
 
 
