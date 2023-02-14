@@ -1354,7 +1354,7 @@ class MovingAverageDayTrading:
             )
 
             time.sleep(3600 / 2000)
-            
+            fig.update_layout(height=800)
             #plt_div = plot(fig, output_type='div')
             #return fig.show()
             #print(plt_div)
@@ -1370,6 +1370,6 @@ if __name__ == "__main__":
     )
     #average.moving_average_timeframes()
     ticker = yf.Ticker('GOOG')
-    print(ticker.fast_info.currency)
+    #print(ticker.fast_info.currency)
 
 
