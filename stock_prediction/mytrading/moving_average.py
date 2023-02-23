@@ -1347,7 +1347,7 @@ class MovingAverageDayTrading:
                         showactive=True,
                         x=1,
                         xanchor="left",
-                        y=1.2,
+                        y=1.1,
                         yanchor="top"
                     )
                 ]

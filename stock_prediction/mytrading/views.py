@@ -3,10 +3,12 @@ from django.views.generic import FormView
 from mytrading.forms import StocksForm
 from mytrading.moving_average import MovingAverageDayTrading
 import yfinance as yf
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
-class StockFormView(FormView):
+class StockFormView(LoginRequiredMixin, FormView):
+
 
     template_name = "mytrading/home.html"
     form_class = StocksForm
@@ -17,14 +19,6 @@ class StockFormView(FormView):
         form = StocksForm(request.POST)
         if form.is_valid():
             ticker = form.cleaned_data.get("ticker")
-            # x_data = [0,1,2,3]
-            # y_data = [x**2 for x in x_data]
-            # trace1 = go.Scatter(x=x_data, y=y_data,
-            #             mode='lines', name='test',
-            #             opacity=0.8, marker_color='green')
-            # layout = go.Layout(title="My Stocks", xaxis={'title':'x1'}, yaxis={'title':'x2'})
-            # figure = go.Figure(data=trace1, layout=layout)
-            
             ticker_obj = yf.Ticker(ticker)
             plt_div = MovingAverageDayTrading(ticker, stop_loss=0.03, take_profit=0.15)
             context={
@@ -32,7 +26,6 @@ class StockFormView(FormView):
                 "ticker": ticker_obj,
                 "form": form
                 }
-            #if ticker:
             return render(
                     request,
                     self.template_name,
@@ -40,10 +33,4 @@ class StockFormView(FormView):
                 )
         else:
             form = StocksForm()
-
-    # def get(self, request):
-    #     #breakpoint()
-    #     if not request.GET:
-    #         pass
-
 
