@@ -76,14 +76,12 @@
     <link href="{% static 'css/sign-in.css' %}" rel="stylesheet">
   </head>
   <body class="text-center">
-    
 <main class="form-signin w-100 m-auto" >
   <form action="{% url 'account_signup' %}" method="post">
     <img style="border-radius: 7%"  class="mb-4" src="{% static 'img/my_4_logo.png' %}" alt="" width="180" height="180">
     <h1 class="h3 mb-3 fw-normal">Signup Form</h1>
 
     {% csrf_token %}
-    
     <div class="form-floating">
       {% render_field form.username placeholder="Username" id="floatingInput" name="username" type="username" autocomplete="username" required=True class="form-control" %}
       <label for="floatingInput">Username</label>
@@ -103,8 +101,20 @@
       {% render_field form.password2 placeholder="Password" id="floatingPassword" name="password2" type="password2" autocomplete="password2" required=True class="form-control" %}
       <label for="floatingPassword">Password</label>
     </div>
+    <div class="form-floating">
+      {% render_field form.date_of_birth placeholder="date_of_birth" id="floatingInput" name="date_of_birth" type="date_of_birth" autocomplete="date_of_birth" required=True class="form-control" %}
+      <label for="floatingInput">Date of Birth</label>
+    </div>
+{% comment %}
+    <div class="form-floating">
+      {% render_field form.country placeholder="country" id="floatingInput" name="country" type="country" autocomplete="country" required=True class="form-control" %}
+      <label for="floatingInput">Country</label>
+    </div>
+    {% endcomment %}
+
+
     {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" onc />
     {% endif %}
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>

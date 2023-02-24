@@ -168,3 +168,9 @@ STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
 
 # MAKE CUSTOM USER
 AUTH_USER_MODEL = 'mytrading.Trader'
+
+
+# ACCOUNT_SIGNUP_FORM_CLASS = 'mytrading.forms.CustomSignupForm'
+ACCOUNT_FORMS = {
+'signup': 'mytrading.forms.CustomSignupForm',
+}
