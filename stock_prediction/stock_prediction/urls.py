@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import Home
+from mytrading.views import CustomSignupView
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('accounts/signup/', CustomSignupView.as_view(), name='account_signup'),
     path("accounts/", include("allauth.urls")),
     path("home/", include("mytrading.urls")),
     path("", Home.as_view(), name="landing_page"),

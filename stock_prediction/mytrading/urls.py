@@ -4,4 +4,5 @@ from mytrading.views import StockFormView
 
 urlpatterns = [
     path("", StockFormView.as_view(), name="home"),
+    
 ]

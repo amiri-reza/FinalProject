@@ -149,13 +149,13 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
+
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 LOGIN_REDIRECT_URL = "/home/"
-
 LOGIN_URL = "/accounts/login/"
 
-
+# STATIC FILES
 STATIC_URL = "static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
@@ -170,7 +170,11 @@ STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
 AUTH_USER_MODEL = 'mytrading.Trader'
 
 
-# ACCOUNT_SIGNUP_FORM_CLASS = 'mytrading.forms.CustomSignupForm'
+# CUSTOM SIGNUP FORM
+ACCOUNT_SIGNUP_VIEW = 'mytrading.views.CustomSignupView'
 ACCOUNT_FORMS = {
 'signup': 'mytrading.forms.CustomSignupForm',
 }
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'Admin', 'ADMIN', 'administrator', 'parisa']
+ACCOUNT_USERNAME_MIN_LENGTH = 5
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
