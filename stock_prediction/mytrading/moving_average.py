@@ -8,7 +8,7 @@ import yfinance as yf
 from datetime import timedelta, datetime
 import time
 import talib as ta
-
+import time
 
 
 
@@ -123,29 +123,43 @@ class MovingAverageDayTrading:
             sell_smas = []
 
             def signals(ma_1, ma_2, ma_3, df, list1, list2, buy, sell):
-
-                for date, row in df.iterrows():
-                    if (
-                        (row[ma_1] < row["Adj Close"])
-                        & (row[ma_2] < row["Adj Close"])
-                        & (row[ma_3] < row["Adj Close"])
-                    ):
-                        list1.append(date)
-
-                    if (
-                        (row[ma_1] > row["Adj Close"])
-                        & (row["EMA_25"] > row["Adj Close"])
-                        & (row["EMA_50"] > row["Adj Close"])
-                    ):
-                        list2.append(date)
+                mask1 = (df[ma_1] > df["Adj Close"]) & (df[ma_2] > df["Adj Close"]) & (df[ma_3] > df["Adj Close"])
+                mask2 = (df[ma_1] < df["Adj Close"]) & (df["EMA_25"] < df["Adj Close"]) & (df["EMA_50"] < df["Adj Close"])
 
                 df[buy] = df["Adj Close"]
                 df[sell] = df["Adj Close"]
-                for date in df.index:
-                    if date not in list1:
-                        df[buy].at[date] = np.nan
-                    if date not in list2:
-                        df[sell].at[date] = np.nan
+
+                df.loc[mask1, sell] = np.nan
+                df.loc[mask2, buy] = np.nan
+
+                df[buy] = df[buy].where(df.groupby(mask2.cumsum()).cumcount() <= 1, np.nan)
+                df[sell] = df[sell].where(df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan)
+
+
+            # def signals(ma_1, ma_2, ma_3, df, list1, list2, buy, sell):
+
+            #     for date, row in df.iterrows():
+            #         if (
+            #             (row[ma_1] < row["Adj Close"])
+            #             & (row[ma_2] < row["Adj Close"])
+            #             & (row[ma_3] < row["Adj Close"])
+            #         ):
+            #             list1.append(date)
+
+            #         if (
+            #             (row[ma_1] > row["Adj Close"])
+            #             & (row["EMA_25"] > row["Adj Close"])
+            #             & (row["EMA_50"] > row["Adj Close"])
+            #         ):
+            #             list2.append(date)
+
+            #     df[buy] = df["Adj Close"]
+            #     df[sell] = df["Adj Close"]
+            #     for date in df.index:
+            #         if date not in list1:
+            #             df[buy].at[date] = np.nan
+            #         if date not in list2:
+            #             df[sell].at[date] = np.nan
 
             signals(
                 "EMA_10",
@@ -182,23 +196,38 @@ class MovingAverageDayTrading:
             sell_sma_25_50 = []
             buy_sma_10_50 = []
             sell_sma_10_50 = []
-
+            
             def signal_cross(ma_1, ma_2, df, list1, list2, buy, sell):
-
-                for date, row in df.iterrows():
-                    if row[ma_1] < row[ma_2]:
-                        list2.append(date)
-
-                    if row[ma_1] > row[ma_2]:
-                        list1.append(date)
+                mask1 = df[ma_1] > df[ma_2]
+                mask2 = df[ma_1] < df[ma_2]
 
                 df[buy] = df["Adj Close"]
                 df[sell] = df["Adj Close"]
-                for date in df.index:
-                    if date not in list1:
-                        df[buy].at[date] = np.nan
-                    if date not in list2:
-                        df[sell].at[date] = np.nan
+
+                df.loc[mask1, sell] = np.nan
+                df.loc[mask2, buy] = np.nan
+
+                df[buy] = df[buy].where(df.groupby(mask2.cumsum()).cumcount() <= 1, np.nan)
+                df[sell] = df[sell].where(df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan)
+            
+            
+                
+            # def signal_cross(ma_1, ma_2, df, list1, list2, buy, sell):
+
+            #     for date, row in df.iterrows():
+            #         if row[ma_1] < row[ma_2]:
+            #             list2.append(date)
+
+            #         if row[ma_1] > row[ma_2]:
+            #             list1.append(date)
+
+            #     df[buy] = df["Adj Close"]
+            #     df[sell] = df["Adj Close"]
+            #     for date in df.index:
+            #         if date not in list1:
+            #             df[buy].at[date] = np.nan
+            #         if date not in list2:
+            #             df[sell].at[date] = np.nan
 
             signal_cross(
                 "EMA_10",
@@ -256,6 +285,7 @@ class MovingAverageDayTrading:
                 "SELL_SMA_10_50",
             )
 
+            
             buy_bollinger = []
             sell_bollinger = []
 
@@ -343,6 +373,7 @@ class MovingAverageDayTrading:
             #     "BUY_EMA_10_25",
             #     "SELL_EMA_10_25",
             # )
+            print(df)
 
             # PLOTTING WITH PLOTLY ----------------------------------------------
 
@@ -1353,23 +1384,26 @@ class MovingAverageDayTrading:
                 ]
             )
 
-            time.sleep(3600 / 2000)
             fig.update_layout(height=800)
             #plt_div = plot(fig, output_type='div')
-            #return fig.show()
+            # return fig.show()
             #print(plt_div)
             #return plt_div
             return fig.to_html()
 
 if __name__ == "__main__":
-    # CN Energy Group Inc.
+    
     tickers = ["GOOG", "TSLA", ""]
     volatile_tickers = ["ROST", "CNEY"]
     average = MovingAverageDayTrading(
         volatile_tickers[0], stop_loss=0.03, take_profit=0.15
     )
-    #average.moving_average_timeframes()
-    ticker = yf.Ticker('GOOG')
+    start = time.time()
+    average.moving_average_timeframes()
+    finish = time.time()
+    print(finish - start)
+
+    # ticker = yf.Ticker('GOOG')
     #print(ticker.fast_info.currency)
 
 
