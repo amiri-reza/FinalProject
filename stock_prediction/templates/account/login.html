@@ -76,30 +76,48 @@
     <link href="{% static 'css/sign-in.css' %}" rel="stylesheet">
   </head>
   <body class="text-center">
+
+
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+    {% endif %}
     
 <main class="form-signin w-100 m-auto" >
-  <form action="{% url 'account_login' %}" method="post">
+  <form class="login" action="{% url 'account_login' %}" method="post">
     <img style="border-radius: 7%"  class="mb-4" src="{% static 'img/my_4_logo.png' %}" alt="" width="180" height="180">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     {% csrf_token %}
+
+
     <div class="form-floating">
-      {% render_field form.login placeholder="Username" id="floatingInput" name="username" type="username" autocomplete="username" required=True class="form-control" %}
-      <label for="floatingInput">Username</label>
+      {% render_field form.login id="user_name" name="username" type="username" required=True class="form-control" %}
+      <label for="user_name">Username</label>
     </div>
 
     <div class="form-floating">
-      {% render_field form.password placeholder="Password" id="floatingPassword" name="password" type="password" autocomplete="password" required=True class="form-control" %}
-      <label for="floatingPassword">Password</label>
+      {% render_field form.password placeholder="Password" id="floatingPassword1" name="password" type="password" autocomplete="current-password" required=True class="form-control" %}
+      <label for="floatingPassword1">Password</label>
     </div>
 
     <div class="checkbox mb-3">
       <label>
-        <input type="checkbox" value="remember-me"> Remember me
+        <input type="checkbox" value="remember"> Remember me
       </label>
     </div>
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <button class="w-100 btn btn-lg btn-primary primaryAction" type="submit">Sign in</button>
     <hr>
     <p>Forgot your password? <a href="{% url 'account_reset_password' %}">Click here!</a></p>
     <p>or</p>

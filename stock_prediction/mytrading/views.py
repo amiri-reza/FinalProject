@@ -4,8 +4,8 @@ from mytrading.forms import StocksForm
 from mytrading.moving_average import MovingAverageDayTrading
 import yfinance as yf
 from django.contrib.auth.mixins import LoginRequiredMixin
-from allauth.account.views import SignupView
-
+from allauth.account.views import SignupView, LoginView
+from mytrading.models import Trader
 
 class StockFormView(LoginRequiredMixin, FormView):
 
@@ -42,4 +42,7 @@ class CustomSignupView(SignupView):
         response = super().form_valid(form)
         self.request.session.flush() # logs the user out immediately
         return response
+    
+
+        
 

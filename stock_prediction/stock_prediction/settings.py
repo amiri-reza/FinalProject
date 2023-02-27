@@ -149,32 +149,39 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
-
-ACCOUNT_EMAIL_VERIFICATION = "none"
-
-LOGIN_REDIRECT_URL = "/home/"
-LOGIN_URL = "/accounts/login/"
-
 # STATIC FILES
 STATIC_URL = "static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-
-
 
 # STRIPE API FOR PAYMENT CREDENTIALS
 STRIPE_API_KEY = os.getenv("SECRET_KEY_STRIPE", "NO SECRET KEY")
 STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
 
-
-# MAKE CUSTOM USER
-AUTH_USER_MODEL = 'mytrading.Trader'
+# SIGNUP AND LOGIN SETTINGS
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+LOGIN_REDIRECT_URL = "/home/"
+LOGIN_URL = "/accounts/login/"
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
+RESTRICTION_AGE = 18
 
 
 # CUSTOM SIGNUP FORM
 ACCOUNT_SIGNUP_VIEW = 'mytrading.views.CustomSignupView'
 ACCOUNT_FORMS = {
 'signup': 'mytrading.forms.CustomSignupForm',
+'add_email': 'allauth.account.forms.AddEmailForm',
+'change_password': 'allauth.account.forms.ChangePasswordForm',
+'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+'login': 'allauth.account.forms.LoginForm',
+'reset_password': 'allauth.account.forms.ResetPasswordForm',
+'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+'set_password': 'allauth.account.forms.SetPasswordForm',
 }
-ACCOUNT_USERNAME_BLACKLIST = ['admin', 'Admin', 'ADMIN', 'administrator', 'parisa']
-ACCOUNT_USERNAME_MIN_LENGTH = 5
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+
+
+# MAKE CUSTOM USER
+AUTH_USER_MODEL = 'mytrading.Trader'
+
+
+
