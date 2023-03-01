@@ -30,6 +30,7 @@ class CustomSignupForm(SignupForm.SignupForm):
         age_validator(date_of_birth, settings.RESTRICTION_AGE)
         return date_of_birth
     
+    
 
     def clean(self):
         super(CustomSignupForm, self).clean()

@@ -9,6 +9,7 @@ from datetime import timedelta, datetime
 import time
 import talib as ta
 import time
+from django.core.mail import send_mail
 
 
 

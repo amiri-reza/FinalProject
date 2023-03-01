@@ -1,0 +1,49 @@
+{% extends 'base_for_allauth.html' %} {% load widget_tweaks %} {% load static %}
+{% load i18n %} {% block head_title %}{% trans "Confirm E-mail Address" %}{%
+endblock %} {% block content %}
+<main class="form-signin w-100 m-auto">
+    {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  <h1>{% trans "Confirm E-mail Address" %}</h1>
+
+  {% if confirmation %} {% user_display confirmation.email_address.user as
+  user_display %}
+
+  <p>
+    {% blocktrans with confirmation.email_address.email as email %}Please
+    confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail
+    address for user {{ user_display }}.{% endblocktrans %}
+  </p>
+  <form
+    method="post"
+    action="{% url 'account_confirm_email' confirmation.key %}"
+  >
+    <img
+      style="border-radius: 7%"
+      class="mb-4"
+      src="{% static 'img/my_4_logo.png' %}"
+      alt=""
+      width="180"
+      height="180"
+    />
+    {% csrf_token %}
+    <button type="submit">{% trans 'Confirm' %}</button>
+  </form>
+  {% else %} {% url 'account_email' as email_url %}
+
+  <p>
+    {% blocktrans %}This e-mail confirmation link expired or is invalid. Please
+    <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{%
+    endblocktrans %}
+  </p>
+
+  {% endif %}
+</main>
+{% endblock %}

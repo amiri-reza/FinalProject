@@ -120,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# InternationalizITHUB SECREation
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
@@ -158,12 +158,13 @@ STRIPE_API_KEY = os.getenv("SECRET_KEY_STRIPE", "NO SECRET KEY")
 STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
 
 # SIGNUP AND LOGIN SETTINGS
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"   #"mandatory"   # none for no email confirmation
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 LOGIN_REDIRECT_URL = "/home/"
 LOGIN_URL = "/accounts/login/"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
 RESTRICTION_AGE = 18
+ACCOUNT_EMAIL_REQUIRED = True # false for no email confirmation
 
 
 # CUSTOM SIGNUP FORM
@@ -183,5 +184,13 @@ ACCOUNT_FORMS = {
 # MAKE CUSTOM USER
 AUTH_USER_MODEL = 'mytrading.Trader'
 
+
+# EMAIL CONFIGURATIONS
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "NO_EMAIL_BACKEND")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "NO_EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT", "NO_EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "NO_HOST_FOUND") # replace with your Mailgun domain name
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "NO_PASSWORD_FOUND")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 
 

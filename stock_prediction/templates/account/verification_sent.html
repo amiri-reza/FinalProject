@@ -1,0 +1,36 @@
+{% extends 'base_for_allauth.html' %} {% load widget_tweaks %} {% load static %}
+{% load i18n %} {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% block content %}
+<main class="form-signin w-100 m-auto">
+  {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <form>
+      <img
+        style="border-radius: 7%"
+        class="mb-4"
+        src="{% static 'img/my_4_logo.png' %}"
+        alt=""
+        width="180"
+        height="180"
+      />
+      <h1>{% trans "Password Reset" %}</h1>
+  
+      {% if user.is_authenticated %} {% include
+      "account/snippets/already_logged_in.html" %} {% endif %}
+  
+      <p>
+        {% blocktrans %}We have sent you an e-mail. If you have not received it
+        please check your spam folder. Otherwise contact us if you do not receive
+        it in a few minutes.{% endblocktrans %}
+      </p>
+      <a href="{% url 'account_login' %}">Login</a>
+    </form>
+  </main>
+{% endblock %}
