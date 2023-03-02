@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, User
 from django.conf import settings
 from django_countries.fields import CountryField
+from django.utils import timezone
 
 
 
@@ -14,7 +15,7 @@ class Stock(models.Model):
 
 class Trader(AbstractUser):
     phone_number = models.CharField(max_length=20, null=True, blank=True)
-    date_of_birth = models.DateField(blank=False)
+    date_of_birth = models.DateField(blank=False, default=timezone.now())
     country = CountryField()
     is_subscriber = models.BooleanField(default=False)
     interface_language = models.CharField(max_length=10, null=True, blank=True)

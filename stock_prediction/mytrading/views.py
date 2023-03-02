@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView, TemplateView
 from mytrading.forms import StocksForm
 from mytrading.moving_average import MovingAverageDayTrading
 import yfinance as yf
 from django.contrib.auth.mixins import LoginRequiredMixin
-from allauth.account.views import SignupView, LoginView, TemplateView
+from allauth.account.views import SignupView, LoginView
 from mytrading.models import Trader
 
 class StockFormView(LoginRequiredMixin, FormView):
@@ -34,7 +34,15 @@ class StockFormView(LoginRequiredMixin, FormView):
         else:
             form = StocksForm()
 
+class TraderProfileView(TemplateView):
+    model = Trader
+    template_name = "account/profile.html"
+    context_object_name = "trader"
 
+    def get(self, request):
+        #breakpoint()
+        trader = request.user
+        return super().get(self, request, trader=trader)
 
 # class CustomSignupView(SignupView):
 #     def form_valid(self, form):

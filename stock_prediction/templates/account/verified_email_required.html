@@ -1,0 +1,48 @@
+{% extends 'base_for_allauth.html' %} {% load widget_tweaks %} {% load static %}
+{% load i18n %} {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% block content %}
+<main class="form-signin w-100 m-auto">
+  {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <form>
+      <img
+        style="border-radius: 7%"
+        class="mb-4"
+        src="{% static 'img/my_4_logo.png' %}"
+        alt=""
+        width="180"
+        height="180"
+      />
+      <h1>{% trans "Verify Your E-mail Address" %}</h1>
+
+      {% url 'account_email' as email_url %}
+      
+      <p>
+        {% blocktrans %}
+            This part of the site requires us to verify that you are who you claim to be. 
+            For this purpose, we require that you verify ownership of your e-mail address.
+        {% endblocktrans %}
+      </p>
+      
+      <p>
+        {% blocktrans %}
+            We have sent an e-mail to you for verification. Please click on the link 
+            inside that e-mail. If you do not see the verification e-mail in your main 
+            inbox, check your spam folder. Otherwise contact us if you do not receive 
+            it within a few minutes.
+        {% endblocktrans %}</p>
+      
+      <p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}">change your e-mail address</a>.{% endblocktrans %}</p>
+      
+    </form>
+  </main>
+{% endblock %}
+
+

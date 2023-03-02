@@ -32,7 +32,7 @@
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" style="align-content: left;">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#"><img src="{% static 'img/icon.png' %}" alt="" width="30" height="30" style="margin-right: 10px;">Stock Prediction</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="{% url 'home' %}"><img src="{% static 'img/icon.png' %}" alt="" width="30" height="30" style="margin-right: 10px;">Stock Prediction</a>
   <div class="navbar-nav navbar-nav-left">
     <button type="button" class="toggle" id="toggle">
       <span></span>
@@ -44,7 +44,7 @@
       <a class="nav-link px-3" href="{% url 'account_logout' %}">Market Data</a>
     </div>
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="{% url 'account_logout' %}">My Profile</a>
+      <a class="nav-link px-3" href="{% url 'profile' %}">My Profile</a>
     </div>
     <div class="nav-item text-nowrap">
       <a class="nav-link px-3" href="{% url 'account_logout' %}">Sign out</a>
@@ -179,10 +179,12 @@
         if (sidebar.style.display === "none") {
           sidebar.style.display = "block";
           sidebar.style.width = "16.666666%";
-          main.style.width = "83.333333%";
+          main.style.width = "100%";
+          main.style.backgroundColor = "rgba(0,0,0,0.3)";
         } else {
           sidebar.style.display = "none";
           main.style.width = "100%";
+          main.style.backgroundColor = "white";
         }
       });
       </script>
