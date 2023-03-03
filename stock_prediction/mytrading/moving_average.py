@@ -1,16 +1,14 @@
-
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.offline as plot
 import pandas as pd
 import numpy as np
-import yfinance as yf 
+import yfinance as yf
 from datetime import timedelta, datetime
 import time
 import talib as ta
 import time
 from django.core.mail import send_mail
-
 
 
 class MovingAverageDayTrading:
@@ -21,7 +19,6 @@ class MovingAverageDayTrading:
         # This way, when an instance of the class is created, the self.stop_loss and self.take_profit will be set with default values of 0.05 and 0.1 respectively. These values can be overridden when an instance of the class is created by passing a different value for stop_loss and take_profit.
 
     def moving_average_timeframes(self):
-
         #  QUERYING DATA --------------------------------------------
         while True:
             end = datetime.today()
@@ -30,7 +27,7 @@ class MovingAverageDayTrading:
             print(f"--------{df}__________")
             print(df.dtypes)
             print(f"index typeeeee : {df.index.dtype}")
-            
+
             # check the interval of your dataframe by using the df.resample function with the same interval of data you want to work with
             ## df.resample('1min')
 
@@ -124,8 +121,16 @@ class MovingAverageDayTrading:
             sell_smas = []
 
             def signals(ma_1, ma_2, ma_3, df, list1, list2, buy, sell):
-                mask1 = (df[ma_1] > df["Adj Close"]) & (df[ma_2] > df["Adj Close"]) & (df[ma_3] > df["Adj Close"])
-                mask2 = (df[ma_1] < df["Adj Close"]) & (df["EMA_25"] < df["Adj Close"]) & (df["EMA_50"] < df["Adj Close"])
+                mask1 = (
+                    (df[ma_1] > df["Adj Close"])
+                    & (df[ma_2] > df["Adj Close"])
+                    & (df[ma_3] > df["Adj Close"])
+                )
+                mask2 = (
+                    (df[ma_1] < df["Adj Close"])
+                    & (df["EMA_25"] < df["Adj Close"])
+                    & (df["EMA_50"] < df["Adj Close"])
+                )
 
                 df[buy] = df["Adj Close"]
                 df[sell] = df["Adj Close"]
@@ -133,9 +138,12 @@ class MovingAverageDayTrading:
                 df.loc[mask1, sell] = np.nan
                 df.loc[mask2, buy] = np.nan
 
-                df[buy] = df[buy].where(df.groupby(mask2.cumsum()).cumcount() <= 1, np.nan)
-                df[sell] = df[sell].where(df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan)
-
+                df[buy] = df[buy].where(
+                    df.groupby(mask2.cumsum()).cumcount() <= 1, np.nan
+                )
+                df[sell] = df[sell].where(
+                    df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan
+                )
 
             # def signals(ma_1, ma_2, ma_3, df, list1, list2, buy, sell):
 
@@ -197,7 +205,7 @@ class MovingAverageDayTrading:
             sell_sma_25_50 = []
             buy_sma_10_50 = []
             sell_sma_10_50 = []
-            
+
             def signal_cross(ma_1, ma_2, df, list1, list2, buy, sell):
                 mask1 = df[ma_1] > df[ma_2]
                 mask2 = df[ma_1] < df[ma_2]
@@ -208,11 +216,13 @@ class MovingAverageDayTrading:
                 df.loc[mask1, sell] = np.nan
                 df.loc[mask2, buy] = np.nan
 
-                df[buy] = df[buy].where(df.groupby(mask2.cumsum()).cumcount() <= 1, np.nan)
-                df[sell] = df[sell].where(df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan)
-            
-            
-                
+                df[buy] = df[buy].where(
+                    df.groupby(mask2.cumsum()).cumcount() <= 1, np.nan
+                )
+                df[sell] = df[sell].where(
+                    df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan
+                )
+
             # def signal_cross(ma_1, ma_2, df, list1, list2, buy, sell):
 
             #     for date, row in df.iterrows():
@@ -286,14 +296,12 @@ class MovingAverageDayTrading:
                 "SELL_SMA_10_50",
             )
 
-            
             buy_bollinger = []
             sell_bollinger = []
 
             def bollinger_bands(
                 bol_lower, bol_middle, bol_upper, df, list1, list2, buy, sell
             ):
-
                 for date, row in df.iterrows():
                     if (row[bol_middle] < row[bol_upper]) and (
                         row[bol_middle] > row[bol_lower]
@@ -396,7 +404,7 @@ class MovingAverageDayTrading:
                     line=dict(width=2),
                 )
             )
-            
+
             fig.add_trace(
                 go.Scatter(x=df.index, y=df["EMA_10"], mode="lines", name="EMA_10")
             )
@@ -1380,20 +1388,20 @@ class MovingAverageDayTrading:
                         x=1,
                         xanchor="left",
                         y=1.1,
-                        yanchor="top"
+                        yanchor="top",
                     )
                 ]
             )
 
             fig.update_layout(height=800)
-            #plt_div = plot(fig, output_type='div')
+            # plt_div = plot(fig, output_type='div')
             # return fig.show()
-            #print(plt_div)
-            #return plt_div
+            # print(plt_div)
+            # return plt_div
             return fig.to_html()
 
+
 if __name__ == "__main__":
-    
     tickers = ["GOOG", "TSLA", ""]
     volatile_tickers = ["ROST", "CNEY"]
     average = MovingAverageDayTrading(
@@ -1405,6 +1413,4 @@ if __name__ == "__main__":
     print(finish - start)
 
     # ticker = yf.Ticker('GOOG')
-    #print(ticker.fast_info.currency)
-
-
+    # print(ticker.fast_info.currency)

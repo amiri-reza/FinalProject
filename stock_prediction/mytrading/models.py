@@ -5,8 +5,6 @@ from django_countries.fields import CountryField
 from django.utils import timezone
 
 
-
-
 class Stock(models.Model):
     name = models.CharField(max_length=16)
     ticker = models.CharField(max_length=12)
@@ -19,8 +17,6 @@ class Trader(AbstractUser):
     country = CountryField()
     is_subscriber = models.BooleanField(default=False)
     interface_language = models.CharField(max_length=10, null=True, blank=True)
-#     # phone number, profile picture, dob, country, is_subscriber, preferred_language 
 
 
-
-
+#     # phone number, profile picture, dob, country, is_subscriber, preferred_language

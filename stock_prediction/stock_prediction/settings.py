@@ -17,9 +17,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -53,7 +50,6 @@ INSTALLED_APPS = [
     "mytrading",
     "widget_tweaks",
     "transactions_app",
-    
 ]
 
 MIDDLEWARE = [
@@ -158,39 +154,41 @@ STRIPE_API_KEY = os.getenv("SECRET_KEY_STRIPE", "NO SECRET KEY")
 STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
 
 # SIGNUP AND LOGIN SETTINGS
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"   #"mandatory"   # none for no email confirmation
+ACCOUNT_EMAIL_VERIFICATION = (
+    "mandatory"  # "mandatory"   # none for no email confirmation
+)
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 LOGIN_REDIRECT_URL = "/home/"
 LOGIN_URL = "/accounts/login/"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
 RESTRICTION_AGE = 18
-ACCOUNT_EMAIL_REQUIRED = True # false for no email confirmation
+ACCOUNT_EMAIL_REQUIRED = True  # false for no email confirmation
 
 
 # CUSTOM SIGNUP FORM
-ACCOUNT_SIGNUP_VIEW = 'mytrading.views.CustomSignupView'
+ACCOUNT_SIGNUP_VIEW = "mytrading.views.CustomSignupView"
 ACCOUNT_FORMS = {
-'signup': 'mytrading.forms.CustomSignupForm',
-'add_email': 'allauth.account.forms.AddEmailForm',
-'change_password': 'allauth.account.forms.ChangePasswordForm',
-'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
-'login': 'allauth.account.forms.LoginForm',
-'reset_password': 'allauth.account.forms.ResetPasswordForm',
-'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
-'set_password': 'allauth.account.forms.SetPasswordForm',
+    "signup": "mytrading.forms.CustomSignupForm",
+    "add_email": "allauth.account.forms.AddEmailForm",
+    "change_password": "allauth.account.forms.ChangePasswordForm",
+    "disconnect": "allauth.socialaccount.forms.DisconnectForm",
+    "login": "allauth.account.forms.LoginForm",
+    "reset_password": "allauth.account.forms.ResetPasswordForm",
+    "reset_password_from_key": "allauth.account.forms.ResetPasswordKeyForm",
+    "set_password": "allauth.account.forms.SetPasswordForm",
 }
 
 
 # MAKE CUSTOM USER
-AUTH_USER_MODEL = 'mytrading.Trader'
+AUTH_USER_MODEL = "mytrading.Trader"
 
 
 # EMAIL CONFIGURATIONS
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "NO_EMAIL_BACKEND")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "NO_EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT", "NO_EMAIL_PORT")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "NO_HOST_FOUND") # replace with your Mailgun domain name
+EMAIL_HOST_USER = os.getenv(
+    "EMAIL_HOST_USER", "NO_HOST_FOUND"
+)  # replace with your Mailgun domain name
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "NO_PASSWORD_FOUND")
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
-
-

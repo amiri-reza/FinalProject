@@ -16,9 +16,9 @@ from django.core.mail import send_mail
 
 
 send_mail(
-    'adsfasdf',
-    'hasdfasdfasdf',
-    'amiri.reza.python@gmail.com',
-    '[amiri.reza68@yahoo.com]',
+    "adsfasdf",
+    "hasdfasdfasdf",
+    "amiri.reza.python@gmail.com",
+    "[amiri.reza68@yahoo.com]",
     fail_silently=False,
 )
