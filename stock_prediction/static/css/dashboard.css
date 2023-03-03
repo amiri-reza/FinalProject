@@ -178,3 +178,36 @@ body {
 
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+
+.navbar-left {
+  width: 3%;
+  margin-left: auto;
+}
+
+.navbar.center .navbar-inner {
+  text-align: center;
+}
+.navbar.center .navbar-inner .nav {
+  float: none;
+  display:inline-block;
+  vertical-align: middle;
+}
+
+.my-btn {
+    text-decoration: none;
+    color: #fff;
+    background: #00cc99;
+    padding: 5px 16px;
+    display: inline-block;
+    border-radius: 3px;
+    transition: 0.3s;
+  }
+
+.my-btn:hover {
+    background: #333;
+}
+
+.custom-col-width {
+  width: 50px;
+}

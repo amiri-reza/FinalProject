@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import FormView, DetailView, TemplateView
+from django.views.generic import FormView, DetailView, TemplateView, UpdateView
 from mytrading.forms import StocksForm
 from mytrading.moving_average import MovingAverageDayTrading
 import yfinance as yf
@@ -36,13 +36,70 @@ class StockFormView(LoginRequiredMixin, FormView):
 
 class TraderProfileView(TemplateView):
     model = Trader
-    template_name = "account/profile.html"
-    context_object_name = "trader"
+    template_name = "mytrading/profile.html"
+    
 
     def get(self, request):
         #breakpoint()
         trader = request.user
         return super().get(self, request, trader=trader)
+    
+
+
+from django.shortcuts import get_object_or_404
+class TraderUpdateView(UpdateView):
+    # breakpoint()
+    template_name = "mytrading/update-profile.html"
+    model = Trader
+    fields = [
+        'first_name',
+        'last_name',
+        'email',
+        'country',
+        'phone_number',
+        'is_subscriber',
+        'interface_language',
+    ]
+
+    success_url = '/'
+    # queryset = Trader.objects.all()
+    # slug_field = 'trader'
+
+
+    # def get_object(self, request):
+    #     trader = Trader.objects.filter(username=request.user.username)
+    #     return super().get_object(trader)
+    # def get_object(self):
+    #     breakpoint()
+    #     return Trader.objects.get(pk=self.request.GET.get('pk'))
+    
+    # def get_object(self):
+
+    #     object = get_object_or_404(Trader, username=self.kwargs.get("username"))
+    #     breakpoint()
+    #     # only owner can view his page
+    #     if self.request.user.username == object.username:
+    #         return object
+    #     else:
+    #         # redirect to 404 page
+    #         print("you are not the owner!!")
+
+    # def get(self, request):
+    #     breakpoint()
+    #     trader = request.user.username
+    #     return super().get(self, request, trader=trader)
+
+
+
+
+
+
+
+
+
+
+
+
 
 # class CustomSignupView(SignupView):
 #     def form_valid(self, form):
@@ -50,6 +107,9 @@ class TraderProfileView(TemplateView):
 #         response = super().form_valid(form)
 #         self.request.session.flush() # logs the user out immediately
 #         return response
+
+
+
     
 
 

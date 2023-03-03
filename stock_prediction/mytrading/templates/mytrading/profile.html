@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "My Account" %}{% endblock %}
 {% block content %}
 {% load static %}
 
@@ -9,8 +11,7 @@
         <div class="col">
           <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
             <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">User</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'mytrading:home' %}">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">User Profile</li>
             </ol>
           </nav>
@@ -23,12 +24,12 @@
             <div class="card-body text-center">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">John Smith</h5>
-              <p class="text-muted mb-1">Full Stack Developer</p>
-              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <h5 class="my-3">{{ trader.first_name }}{{ trader.last_name }}</h5>
+              <p class="text-muted mb-1">Last Login: {{ trader.last_login }}</p>
+              <p class="text-muted mb-4">{{ trader.country.name}}</p>
               <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary">Follow</button>
-                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                <a type="button" class="btn btn-primary" href="{% url 'mytrading:update-profile' trader.id %}">Edit My Profile</a>
+                <button type="button" class="btn btn-outline-primary ms-1">Security Settings</button>
               </div>
             </div>
           </div>
@@ -124,7 +125,7 @@
                   <p class="mb-0">Last Login</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{ trader.last_login }}</p>
+                  <p class="text-muted mb-0">{{ trader.interface_language }}</p>
                 </div>
               </div>
             </div>
