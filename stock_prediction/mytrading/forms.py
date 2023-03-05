@@ -54,6 +54,5 @@ class CustomSignupForm(SignupForm.SignupForm):
         )
         return user
 
-
 # class TraderUpdateForm(forms.Form):
 #     ...
