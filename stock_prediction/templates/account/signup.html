@@ -20,7 +20,7 @@
           width="180"
           height="180"
         />
-        <h1 class="h3 mb-3 fw-normal">Signup Form</h1>
+        <h1 class="h3 mb-3 fw-normal">Signup</h1>
         <!-- placeholder => placeholder text for the input field,
         id, name, autocomplete are HTML attributes for the field,
         type = date, required => makes field mandatory, class: CSS class -->
@@ -40,32 +40,33 @@
             </div>
         {% endfor %}
         {% endif %}
-        <div class="form-floating">
+        {{ date_of_birth_error }}
+        <div class="form-floating mb-1">
           {% render_field form.username placeholder="Username" id="user_name" name="username" type="username" autocomplete="off" required=True class="form-control" %}
           <label for="user_name">Username</label>
         </div>
 
-        <div class="form-floating">
-          {% render_field form.email placeholder="Email" id="email_address" name="email" type="email" autocomplete="off" required=True class="form-control" %}
+        <div class="form-floating mb-1">
+          {% render_field form.email placeholder="stocks@example.com" id="email_address" name="email" type="email" autocomplete="off" required=True class="form-control" %}
           <label for="email_address">Email</label>
         </div>
 
-        <div class="form-floating">
-          {% render_field form.password1 id="floatingPassword1" name="password" type="password" autocomplete="off" required=True class="form-control" %}
-          <label for="floatingPassword1">Password</label>
+        <div class="form-floating mb-1">
+          {% render_field form.password1 placeholder="Password" id="inputPassword" name="password" type="password" autocomplete="off" required=True class="form-control" %}
+          <label for="inputPassword">Password</label>
         </div>
 
-        <div class="form-floating mb-3">
-          {% render_field form.password2 id="floatingPassword2" name="password" type="password" autocomplete="off" required=True class="form-control mb-3" %}
-          <label for="floatingPassword2">Password</label>
+        <div class="form-floating mb-1">
+          {% render_field form.password2 placeholder="Password" id="inputPassword2" name="password" type="password" autocomplete="off" required=True class="form-control" %}
+          <label for="inputPassword2">Password (again)</label>
         </div>
-        <div class="form-floating mt-3">
+        <div class="form-floating mb-1">
           {% render_field form.date_of_birth placeholder="date_of_birth" id="date_of_birth" name="date_of_birth" type="date" autocomplete="off" required=True class="form-control" %}
           <label for="date_of_birth">Date of Birth</label>
         </div>
-        {{ date_of_birth_error }}
+        
 
-        <div class="form-floating">
+        <div class="form-floating mb-2">
           {% render_field form.country id="country_list" type="country" autocomplete="country" required=True class="form-control" %}
           <label for="country_list">Country</label>
         </div>

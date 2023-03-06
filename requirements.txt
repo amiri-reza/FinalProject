@@ -16,4 +16,5 @@ yfinance==0.2.11
 google-api-python-client
 oauth2client
 jsonpickle
+geoip2
 

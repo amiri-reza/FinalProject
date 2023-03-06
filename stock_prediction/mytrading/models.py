@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, User
 from django.conf import settings
 from django_countries.fields import CountryField
 from django.utils import timezone
+from .locator import get_location
 
 
 class Stock(models.Model):
@@ -17,6 +18,7 @@ class Trader(AbstractUser):
     country = CountryField()
     is_subscriber = models.BooleanField(default=False)
     interface_language = models.CharField(max_length=10, null=True, blank=True)
+    login_location = models.JSONField()
 
 
 #     # phone number, profile picture, dob, country, is_subscriber, preferred_language

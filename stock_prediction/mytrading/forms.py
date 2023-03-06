@@ -6,6 +6,7 @@ from mytrading.validator import age_validator
 import importlib
 from allauth.account.adapter import get_adapter
 from django.conf import settings
+from mytrading.locator import get_location
 
 
 class StocksForm(forms.Form):
@@ -44,6 +45,7 @@ class CustomSignupForm(SignupForm.SignupForm):
         password = self.cleaned_data.get("password1")
         country = self.cleaned_data.get("country")
         date_of_birth = self.clean_date_of_birth()
+        login_location = get_location(request)
 
         user = Trader.objects.create_user(
             username=username,
@@ -51,8 +53,6 @@ class CustomSignupForm(SignupForm.SignupForm):
             password=password,
             date_of_birth=date_of_birth,
             country=country,
+            login_location=login_location,
         )
         return user
-
-# class TraderUpdateForm(forms.Form):
-#     ...

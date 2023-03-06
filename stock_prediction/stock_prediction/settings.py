@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "mytrading",
     "widget_tweaks",
     "transactions_app",
+    "geoip2",
 ]
 
 MIDDLEWARE = [
@@ -192,3 +193,10 @@ EMAIL_HOST_USER = os.getenv(
 )  # replace with your Mailgun domain name
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "NO_PASSWORD_FOUND")
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
+
+
+# CSRF_FAILURE_VIEW = 'when there is a failure in csrf token!'
+
+# GEOIP2
+GEOIP_PATH = os.path.join("../geoip")
+print(GEOIP_PATH)

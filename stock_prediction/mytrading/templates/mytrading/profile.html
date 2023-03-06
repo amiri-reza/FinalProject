@@ -4,7 +4,41 @@
 {% block content %}
 {% load static %}
 
+<style>
+  .alert {
+  padding: 5px;
+  background-color: #8214a3;
+  color: white;
+}
 
+.closebtn {
+  margin-left: 0px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+  
+    {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <li>{{message}}</li>
+        </div>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
 <section style="background-color: #eee;">
     <div class="container py-5">
       <div class="row">
@@ -24,12 +58,22 @@
             <div class="card-body text-center">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">{{ trader.first_name }}{{ trader.last_name }}</h5>
+              <h5 class="my-3">{{ trader.first_name }}&nbsp;{{ trader.last_name }}</h5>
               <p class="text-muted mb-1">Last Login: {{ trader.last_login }}</p>
-              <p class="text-muted mb-4">{{ trader.country.name}}</p>
+              <!-- for login location we can use the following keys:
+              city, continent_code, continent_name, country_code, country_name, 
+              dma_code, is_in_european_union, latitude, longitude, postal_code,
+              region, time_zone -->
+              <p class="text-muted mb-4">Login Location: {{ trader.login_location.city }}</p>
               <div class="d-flex justify-content-center mb-2">
-                <a type="button" class="btn btn-primary" href="{% url 'mytrading:update-profile' trader.id %}">Edit My Profile</a>
-                <button type="button" class="btn btn-outline-primary ms-1">Security Settings</button>
+                <a type="button" class="btn btn-primary" 
+                  href="{% url 'mytrading:update-profile' trader.id %}">
+                  Edit My Profile
+                </a>
+                <a type="button" class="btn btn-outline-primary ms-1" 
+                  href="{% url 'mytrading:update-account' trader.id %}">
+                  Security Settings
+                </a>
               </div>
             </div>
           </div>
@@ -69,8 +113,8 @@
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0">
-                    {% if trader.first_name and trader.last_name %}
-                    {{ trader.first_name }} {{ trader.last_name }}
+                    {% if trader.first_name or trader.last_name %}
+                    {{ trader.first_name }}&nbsp;{{ trader.last_name }}
                     {% else %}
                     --
                     {% endif %}
@@ -122,7 +166,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Last Login</p>
+                  <p class="mb-0">Language</p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0">{{ trader.interface_language }}</p>

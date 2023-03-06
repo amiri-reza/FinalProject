@@ -48,7 +48,7 @@
               <a href="{% url 'mytrading:profile' %}">User</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
-              Update Profile
+              Update Security Settings
             </li>
           </ol>
         </nav>
@@ -65,11 +65,10 @@
               class="rounded-circle img-fluid"
               style="width: 150px"
             />
-            <h5 class="my-3">{{ trader.first_name }}{{ trader.last_name }}</h5>
+            <h5 class="my-3">{{ trader.first_name }} &nbsp;{{ trader.last_name }}</h5>
             <p class="text-muted mb-1">Last Login: {{ trader.last_login }}</p>
             <p class="text-muted mb-4">{{ trader.country.name}}</p>
             <div class="d-flex justify-content-center mb-2">
-              
               <button type="submit" class="btn btn-primary" form="update-form" >Save</button>
               <a href="{% url 'mytrading:profile' %}">
                 <input type="button" class="btn btn-outline-primary ms-1" name="Cancel" value="Cancel">
@@ -84,58 +83,27 @@
           <form action="" method="post" id="update-form">
             {% csrf_token %}
             <div class="row">
-              
               <div class="col-sm-3">
-                <p class="mb-0">First Name</p>
+                <p class="mb-0">Email Address</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ form.first_name }}</p>
+                <p class="text-muted mb-0">{{ form.email }}</p>
               </div>
             </div>
             <hr />
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Last Name</p>
+                <p class="mb-0">Username</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ form.last_name }}</p>
+                <p class="text-muted mb-0">{{ form.username }}</p>
               </div>
             </div>
             <hr />
             <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Phone</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ form.phone_number }}</p>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Country</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ form.country }}</p>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Subscription</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ form.is_subscriber }}</p>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Language</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ form.interface_language }}</p>
-              </div>
+              <a href="{% url 'mytrading:change-password' %}">
+                <input type="button" class="btn btn-primary ms-1" name="change_password" value="Change Password">
+              </a>
             </div>
           </form>
           </div>
