@@ -9,6 +9,6 @@ class Home(TemplateView):
         if not request.user.is_authenticated:
             return redirect("account_login")
         if request.user.is_authenticated:
-            return redirect("home")
+            return redirect("home/")
 
         return super().dispatch(request, *args, **kwargs)

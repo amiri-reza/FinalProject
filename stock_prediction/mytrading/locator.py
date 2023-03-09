@@ -13,5 +13,6 @@ def get_location(request):
     elif ip:
         city = g.city(ip)
     else:
+        print(ip)
         city = {"city": "Unknown"}
     return city

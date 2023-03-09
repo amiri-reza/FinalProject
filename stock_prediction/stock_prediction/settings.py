@@ -132,8 +132,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -145,7 +143,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
-
 # STATIC FILES
 STATIC_URL = "static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
@@ -153,6 +150,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # STRIPE API FOR PAYMENT CREDENTIALS
 STRIPE_API_KEY = os.getenv("SECRET_KEY_STRIPE", "NO SECRET KEY")
 STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
+STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_ENDPOINT_SECRET", "NO ENDPOINT SECRET KEY")
 
 # SIGNUP AND LOGIN SETTINGS
 ACCOUNT_EMAIL_VERIFICATION = (
@@ -199,4 +197,3 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 
 # GEOIP2
 GEOIP_PATH = os.path.join("../geoip")
-print(GEOIP_PATH)
