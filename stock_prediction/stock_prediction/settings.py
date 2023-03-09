@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-3uougfw74b=@w9(rf7lreox(dk)2@pd$u)300b&ukq+(cp@8&r"
+SECRET_KEY = os.getenv("SECRET_KEY", "NO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,12 +42,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django.contrib.sites', # new
-
-    'allauth', # new
-    'allauth.account', # new
-    'allauth.socialaccount', # new
-    'django_extensions',
+    "django.contrib.sites",  # new
+    "allauth",  # new
+    "allauth.account",  # new
+    "allauth.socialaccount",  # new
+    "django_extensions",
+    "mytrading",
+    "widget_tweaks",
+    "transactions_app",
+    "geoip2",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +68,7 @@ ROOT_URLCONF = "stock_prediction.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,7 +93,7 @@ DATABASES = {
         "NAME": "trado",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "localhost"
+        "HOST": "localhost",
     }
 }
 
@@ -109,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# InternationalizITHUB SECREation
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
@@ -124,8 +132,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -137,7 +143,57 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
+# STATIC FILES
+STATIC_URL = "static/"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+# STRIPE API FOR PAYMENT CREDENTIALS
+STRIPE_API_KEY = os.getenv("SECRET_KEY_STRIPE", "NO SECRET KEY")
+STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
+STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_ENDPOINT_SECRET", "NO ENDPOINT SECRET KEY")
 
-LOGIN_REDIRECT_URL = 'home'
+# SIGNUP AND LOGIN SETTINGS
+ACCOUNT_EMAIL_VERIFICATION = (
+    "mandatory"  # "mandatory"   # none for no email confirmation
+)
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+LOGIN_REDIRECT_URL = "/home/"
+LOGIN_URL = "/accounts/login/"
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
+RESTRICTION_AGE = 18
+ACCOUNT_EMAIL_REQUIRED = True  # false for no email confirmation
+
+
+# CUSTOM SIGNUP FORM
+ACCOUNT_SIGNUP_VIEW = "mytrading.views.CustomSignupView"
+ACCOUNT_FORMS = {
+    "signup": "mytrading.forms.CustomSignupForm",
+    "add_email": "allauth.account.forms.AddEmailForm",
+    "change_password": "allauth.account.forms.ChangePasswordForm",
+    "disconnect": "allauth.socialaccount.forms.DisconnectForm",
+    "login": "allauth.account.forms.LoginForm",
+    "reset_password": "allauth.account.forms.ResetPasswordForm",
+    "reset_password_from_key": "allauth.account.forms.ResetPasswordKeyForm",
+    "set_password": "allauth.account.forms.SetPasswordForm",
+}
+
+
+# MAKE CUSTOM USER
+AUTH_USER_MODEL = "mytrading.Trader"
+
+
+# EMAIL CONFIGURATIONS
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "NO_EMAIL_BACKEND")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "NO_EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT", "NO_EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv(
+    "EMAIL_HOST_USER", "NO_HOST_FOUND"
+)  # replace with your Mailgun domain name
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "NO_PASSWORD_FOUND")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
+
+
+# CSRF_FAILURE_VIEW = 'when there is a failure in csrf token!'
+
+# GEOIP2
+GEOIP_PATH = os.path.join("../geoip")

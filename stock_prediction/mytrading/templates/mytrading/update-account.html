@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% load i18n %} {% block title %}{% trans "My Account" %}
+{% endblock %} {% block content %} {% load static %}
+<style>
+  .alert {
+  padding: 5px;
+  background-color: #8214a3;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 0px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+  
+    {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <li>{{message}}</li>
+        </div>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+<section style="background-color: #eee">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+              <a href="{% url 'mytrading:home' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="{% url 'mytrading:profile' %}">User</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Update Security Settings
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+              alt="avatar"
+              class="rounded-circle img-fluid"
+              style="width: 150px"
+            />
+            <h5 class="my-3">{{ trader.first_name }} &nbsp;{{ trader.last_name }}</h5>
+            <p class="text-muted mb-1">Last Login: {{ trader.last_login }}</p>
+            <p class="text-muted mb-4">{{ trader.country.name}}</p>
+            <div class="d-flex justify-content-center mb-2">
+              <button type="submit" class="btn btn-primary" form="update-form" >Save</button>
+              <a href="{% url 'mytrading:profile' %}">
+                <input type="button" class="btn btn-outline-primary ms-1" name="Cancel" value="Cancel">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+          <form action="" method="post" id="update-form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form.email }}</p>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Username</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ form.username }}</p>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <a href="{% url 'mytrading:change-password' %}">
+                <input type="button" class="btn btn-primary ms-1" name="change_password" value="Change Password">
+              </a>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

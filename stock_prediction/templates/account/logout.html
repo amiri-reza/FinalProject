@@ -1,0 +1,38 @@
+{% extends 'base_for_allauth.html' %} {% load widget_tweaks %} {% load static %}
+{% load i18n %} {% block head_title %}{% trans "Sign Out" %}{% endblock %}
+{% block content %}
+
+<main class="form-signin w-100 m-auto">
+    {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  <form method="post" action="{% url 'account_logout' %}">
+    <img
+      style="border-radius: 7%; text-align: center"
+      class="mb-4"
+      src="{% static 'img/my_4_logo.png' %}"
+      alt=""
+      width="180"
+      height="180"
+    />
+    <h1>Sign Out</h1>
+    <br />
+    <p>Are you sure you want to sign out?</p>
+    {% csrf_token %} {% if redirect_field_value %}
+    <input
+      type="hidden"
+      name="{{ redirect_field_name }}"
+      value="{{ redirect_field_value }}"
+    />
+    {% endif %}
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Out</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
+  </form>
+</main>
+{% endblock %}

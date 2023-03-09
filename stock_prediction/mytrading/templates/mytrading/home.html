@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Homepage" %}{% endblock %}
+{% load static %}
+{% block content %}
+
+<style>
+  .alert {
+  padding: 5px;
+  background-color: #8214a3;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 0px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+  
+    {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <li>{{message}}</li>
+        </div>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+ 
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-sm btn-outline-secondary">Search</button>
+    </form>
+    <h1 class="h2"></h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <span data-feather="calendar" class="align-text-bottom"></span>
+        This week
+      </button>
+    </div>
+  </div>
+
+  {% autoescape off %}
+  {{ plt_div }}
+  {% endautoescape %}
+
+  <hr>
+<p> Buy and Sell Form Can Be Inserted HERE!</p>
+<hr>
+
+{{ ticker.}}
+
+
+<h2>Stock Overview</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <tr>
+    <th>Currency</th>
+    <td>{{ ticker.fast_info.currency }}</td>
+    </tr>
+    <tr>
+    <th>Day High</th>
+    <td>{{ ticker.fast_info.dayHigh }}</td>
+    </tr>
+    <tr>
+    <th>Day Low</th>
+    <td>{{ ticker.fast_info.dayLow }}</td>
+    </tr>
+    <tr>
+    <th>Exchange</th>
+    <td>{{ ticker.fast_info.exchange }}</td>
+    </tr>
+    <tr>
+    <th>50 Day Average</th>
+    <td>{{ ticker.fast_info.fiftyDayAverage }}</td>
+    </tr>
+    <tr>
+    <th>Last Price</th>
+    <td>{{ ticker.fast_info.lastPrice }}</td>
+    </tr>
+    <tr>
+    <th>Last Volume</th>
+    <td>{{ ticker.fast_info.lastVolume }}</td>
+    </tr>
+    <tr>
+    <th>Market Cap</th>
+    <td>{{ ticker.fast_info.marketCap }}</td>
+    </tr>
+    <tr>
+    <th>Open</th>
+    <td>{{ ticker.fast_info.open }}</td>
+    </tr>
+    <tr>
+    <th>Previous Close</th>
+    <td>{{ ticker.fast_info.previousClose }}</td>
+    </tr>
+    <tr>
+    <th>Quote Type</th>
+    <td>{{ ticker.fast_info.quoteType }}</td>
+    </tr>
+    <tr>
+    <th>Regular Market Previous Close</th>
+    <td>{{ ticker.fast_info.regularMarketPreviousClose }}</td>
+    </tr>
+    <tr>
+    <th>Shares</th>
+    <td>{{ ticker.fast_info.shares }}</td>
+    </tr>
+    <tr>
+    <th>10 Day Average Volume</th>
+    <td>{{ ticker.fast_info.tenDayAverageVolume }}</td>
+    </tr>
+    <tr>
+    <th>3 Month Average Volume</th>
+    <td>{{ ticker.fast_info.threeMonthAverageVolume }}</td>
+    </tr>
+    <tr>
+    <th>Timezone</th>
+    <td>{{ ticker.fast_info.timezone }}</td>
+    </tr>
+    <tr>
+    <th>200 Day Average</th>
+    <td>{{ ticker.fast_info.twoHundredDayAverage }}</td>
+    </tr>
+    <tr>
+    <th>Year Change</th>
+    <td>{{ ticker.fast_info.yearChange }}</td>
+    </tr>
+    <tr>
+    <th>Year High</th>
+    <td>{{ ticker.fast_info.yearHigh }}</td>
+    </tr>
+    <tr>
+    <th>Year Low</th>
+    <td>{{ ticker.fast_info.yearLow }}</td>
+    </tr>
+    <tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+  {% if ticker.news %}
+  <h2> News: </h2>
+  {% for new in ticker.news %}
+  <ul>
+    <li>Title: {{ new.title }}</li>
+    <li>Publisher: {{ new.title }}</li>
+    <li>Link: <a href="{{ new.link }}"> Click to go to the external link </a></li>
+  </ul>
+  ----------------------------------------------------
+  {% endfor %}
+  {% endif %}
+
+
+
+{% endblock %}

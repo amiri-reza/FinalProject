@@ -1,0 +1,95 @@
+{% extends 'base_for_allauth.html' %} {% load widget_tweaks %} {% load static %}
+{% load i18n %} {% block head_title %}{% trans "Sign Up" %}{% endblock %}
+{% block content %}
+    <main class="form-signin w-100 m-auto">
+      {% if messages %}
+    <div>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+      <form action="{% url 'account_signup' %}" method="post">
+        <img
+          style="border-radius: 7%"
+          class="mb-4"
+          src="{% static 'img/my_4_logo.png' %}"
+          alt=""
+          width="180"
+          height="180"
+        />
+        <h1 class="h3 mb-3 fw-normal">Signup</h1>
+        <!-- placeholder => placeholder text for the input field,
+        id, name, autocomplete are HTML attributes for the field,
+        type = date, required => makes field mandatory, class: CSS class -->
+        {% csrf_token %}
+
+        {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-error">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+        {% endif %}
+        {{ date_of_birth_error }}
+        <div class="form-floating mb-1">
+          {% render_field form.username placeholder="Username" id="user_name" name="username" type="username" autocomplete="off" required=True class="form-control" %}
+          <label for="user_name">Username</label>
+        </div>
+
+        <div class="form-floating mb-1">
+          {% render_field form.email placeholder="stocks@example.com" id="email_address" name="email" type="email" autocomplete="off" required=True class="form-control" %}
+          <label for="email_address">Email</label>
+        </div>
+
+        <div class="form-floating mb-1">
+          {% render_field form.password1 placeholder="Password" id="inputPassword" name="password" type="password" autocomplete="off" required=True class="form-control" %}
+          <label for="inputPassword">Password</label>
+        </div>
+
+        <div class="form-floating mb-1">
+          {% render_field form.password2 placeholder="Password" id="inputPassword2" name="password" type="password" autocomplete="off" required=True class="form-control" %}
+          <label for="inputPassword2">Password (again)</label>
+        </div>
+        <div class="form-floating mb-1">
+          {% render_field form.date_of_birth placeholder="date_of_birth" id="date_of_birth" name="date_of_birth" type="date" autocomplete="off" required=True class="form-control" %}
+          <label for="date_of_birth">Date of Birth</label>
+        </div>
+        
+
+        <div class="form-floating mb-2">
+          {% render_field form.country id="country_list" type="country" autocomplete="country" required=True class="form-control" %}
+          <label for="country_list">Country</label>
+        </div>
+        {% if redirect_field_value %}
+        <input
+          type="hidden"
+          name="{{ redirect_field_name }}"
+          value="{{ redirect_field_value }}"
+          onc
+        />
+        {% endif %}
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
+          Sign Up
+        </button>
+        <hr />
+
+        <p>
+          Have an account?
+          <a href="{% url 'account_login' %}">Login</a>
+        </p>
+
+        <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
+      </form>
+    </main>
+{% endblock %}
