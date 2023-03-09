@@ -1,5 +1,5 @@
 
-Django==4.1.6
+django
 django-allauth==0.52.0
 django-countries==7.5.1
 django-custom-user==1.1
