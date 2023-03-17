@@ -90,12 +90,25 @@ WSGI_APPLICATION = "stock_prediction.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "trado",
+        "NAME": "stocks_db",
         "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "localhost",
+        "PASSWORD": "Rezaamiri",
+        "HOST": "database-1.cuifzcy8lop5.eu-central-1.rds.amazonaws.com",
     }
 }
+
+
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "trado",
+#         "USER": "postgres",
+#         "PASSWORD": "postgres",
+#         "HOST": "localhost",
+#     }
+# }
 
 
 # Password validation
