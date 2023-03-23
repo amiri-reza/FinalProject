@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "NO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["3.76.212.30", "*"]
+ALLOWED_HOSTS = ["127.0.0.1", "3.76.212.30", "*"]
 
 
 # Application definition
@@ -87,28 +87,26 @@ WSGI_APPLICATION = "stock_prediction.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "stocks_db",
-        "USER": "postgres",
-        "PASSWORD": "Rezaamiri",
-        "HOST": "database-1.cuifzcy8lop5.eu-central-1.rds.amazonaws.com",
-    }
-}
-
-
-
-
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "trado",
+#         "NAME": "stocks_db",
 #         "USER": "postgres",
-#         "PASSWORD": "postgres",
-#         "HOST": "localhost",
+#         "PASSWORD": "Rezaamiri",
+#         "HOST": "database-1.cuifzcy8lop5.eu-central-1.rds.amazonaws.com",
 #     }
 # }
+
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "trado",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+    }
+}
 
 
 # Password validation
@@ -209,4 +207,5 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 # CSRF_FAILURE_VIEW = 'when there is a failure in csrf token!'
 
 # GEOIP2
-GEOIP_PATH = os.path.join("../geoip")
+GEOIP_PATH = os.path.join("static/geoip")
+print("------------------------------", GEOIP_PATH)

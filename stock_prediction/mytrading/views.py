@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import FormView, DetailView, TemplateView, UpdateView
+from django.views.generic import FormView, TemplateView, UpdateView
 from mytrading.forms import StocksForm
 from mytrading.moving_average import MovingAverageDayTrading
 import yfinance as yf
 from django.contrib.auth.mixins import LoginRequiredMixin
-from allauth.account.views import SignupView, LoginView
 from mytrading.models import Trader
 from django.urls import reverse_lazy
 from allauth.account.views import PasswordChangeView
+from mytrading.locator import get_location
 
 
 class StockFormView(LoginRequiredMixin, FormView):
@@ -37,6 +37,8 @@ class TraderProfileView(TemplateView):
 
     def get(self, request):
         trader = request.user
+        trader.login_location = get_location(request)
+
         return super().get(self, request, trader=trader)
 
 

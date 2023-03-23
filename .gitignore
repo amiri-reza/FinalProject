@@ -162,5 +162,4 @@ cython_debug/
 # credentials for gmail account
 credentials.json
 
-# geoip2
-geoip/
+
