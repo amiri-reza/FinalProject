@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "django_extensions",
     "mytrading",
     "widget_tweaks",
-    "transactions_app",
     "geoip2",
 ]
 
@@ -158,10 +157,6 @@ SITE_ID = 1
 STATIC_URL = "static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
-# STRIPE API FOR PAYMENT CREDENTIALS
-STRIPE_API_KEY = os.getenv("SECRET_KEY_STRIPE", "NO SECRET KEY")
-STRIPE_PUBLIC_KEY = os.getenv("PUBLISHABLE_KEY_STRIPE", "NO PUBLIC KEY")
-STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_ENDPOINT_SECRET", "NO ENDPOINT SECRET KEY")
 
 # SIGNUP AND LOGIN SETTINGS
 ACCOUNT_EMAIL_VERIFICATION = (
