@@ -71,3 +71,29 @@ class CustomChangePassword(PasswordChangeView):
         return reverse_lazy(
             "mytrading:update-account", kwargs={"pk": self.request.user.id}
         )
+
+
+from django.shortcuts import render
+from django.http import JsonResponse
+from .chatbot import ChatBotSpacy
+from mytrading.moving_average import MovingAverageDayTrading
+
+def chatbot(request):
+
+    #breakpoint()
+    if request.method == 'POST':
+        ticker = request.POST.get('ticker')
+        statement = request.POST.get('statement')
+        print("----------------------------------------", ticker, statement)
+        average = MovingAverageDayTrading(ticker, df_retrieve=True, stop_loss=0.03, take_profit=0.15)
+        df = average.moving_average_timeframes()
+
+        chatbot_response = ChatBotSpacy(ticker, df, statement)
+        response_text = chatbot_response.chatbot()
+        print("----------------------------------------")
+        if response_text is None:
+            response_text = "Sorry I don't understand that. Please rephrase your statement."
+
+        return JsonResponse({'response': response_text})
+
+    return render(request, 'mytrading/chatbot2.html')

@@ -27,5 +27,5 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("home/", include("mytrading.urls")),
     path("", Home.as_view(), name="landing_page"),
-    path("payments/", include("transactions_app.urls")),
+
 ]

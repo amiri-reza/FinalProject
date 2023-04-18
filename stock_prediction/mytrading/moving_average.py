@@ -12,8 +12,9 @@ from django.core.mail import send_mail
 
 
 class MovingAverageDayTrading:
-    def __init__(self, ticker, stop_loss=0.05, take_profit=0.1):
+    def __init__(self, ticker, df_retrieve=False, stop_loss=0.05, take_profit=0.1):
         self.ticker = ticker
+        self.df_retrieve = df_retrieve
         self.stop_loss = stop_loss
         self.take_profit = take_profit
         # This way, when an instance of the class is created, the self.stop_loss and self.take_profit will be set with default values of 0.05 and 0.1 respectively. These values can be overridden when an instance of the class is created by passing a different value for stop_loss and take_profit.
@@ -383,7 +384,8 @@ class MovingAverageDayTrading:
             #     "SELL_EMA_10_25",
             # )
             print(df)
-
+            if self.df_retrieve:
+                return df
             # PLOTTING WITH PLOTLY ----------------------------------------------
 
             # fig = go.Figure()

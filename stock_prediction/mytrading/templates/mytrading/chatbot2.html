@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Stock Trading Chatbot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <style>
+      .chatbot-btn {
+        
+        background-size: cover;
+        background-color: rgb(182, 25, 25); 
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        border: none;
+      }
+      
+          .modal-dialog {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            height: 600px;
+          }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <img src="{% static '/chatbot.png' %}" class="chatbot-btn" data-toggle="modal" data-target="#chatbot-modal">
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="chatbot-modal" tabindex="-1" role="dialog" aria-labelledby="chatbot-modal-label" aria-hidden="true">
+      <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="chatbot-modal-label">
+              <i class="fa fa-comments" aria-hidden="true"></i> Stock Trading Chatbot
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="chat-container">
+              <div class="chat-area">
+              </div>
+              <div class="input-area">
+                <form id="chatbot-form" method="post">
+                  {% csrf_token %}
+                  <label for="ticker">Ticker:</label>
+                  <input type="text" id="ticker" name="ticker" required>
+                  <br>
+                  <label for="statement">Statement:</label>
+                  <input type="text" id="statement" name="statement" required>
+                  <br>
+                  <button type="submit">Submit</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
+    <script>
+ $(function() {
+  $('.chatbot-btn').on('click', function() {
+    $('#chatbot-modal').modal('show');
+  });
+
+  $('#chatbot-modal').on('hidden.bs.modal', function () {
+    $(this).find('.chat-area').empty();
+  });
+
+  $('#chatbot-form').submit(function(event) {
+    event.preventDefault();
+    var ticker = $('#ticker').val();
+    var statement = $('#statement').val();
+    send_message(ticker, statement);
+    $('#ticker').val('');
+    $('#statement').val('');
+  });
+
+  function send_message(ticker, statement) {
+    console.log('send_message called');
+    $.ajax({
+      url: '/home/chatbot/',
+      type: 'POST',
+      data: {
+        'ticker': ticker,
+        'statement': statement,
+        'csrfmiddlewaretoken': '{{ csrf_token }}'
+      },
+      dataType: 'json',
+      success: function(data) {
+        display_message('You', statement);
+        display_message('Chatbot', data.response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error: ' + error.message);
+      }
+    });
+  }
+
+  function display_message(sender, message) {
+    var chat_area = $('.chat-area');
+    var message_div = $('<div>', {'class': 'message'});
+    var sender_div = $('<div>', {'class': 'message-sender'});
+    var text_div = $('<div>', {'class': 'message-text'});
+    sender_div.text(sender + ':');
+    text_div.text(message);
+    message_div.append(sender_div).append(text_div);
+    chat_area.append(message_div);
+    chat_area.scrollTop(chat_area.prop('scrollHeight'));
+  }
+});
+
+
+
+
+
+
+    </script> 
