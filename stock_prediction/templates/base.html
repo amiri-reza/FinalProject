@@ -1,347 +1,269 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Hugo 0.108.0" />
-    <title>{% block title %}{% endblock %}</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/"/>
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/sidebar.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/chatbot.css' %}" rel="stylesheet"  />
-    <style>
-      .chatbot-btn {
-        background-image: url('{% static "img/chatbot.png" %}');
-        background-size: cover;
-        position: fixed;
-        bottom: 50px;
-        right: 20px;
-        
-        width: 130px;
-        height: 60px;
-        border: none;
-      }
-      .modal-dialog {
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        width: 300px;
-        height: 600px;
-      }
-      body.modal-open {
-        overflow: initial !important;
-      }
-    </style>
-  </head>
-  <body style="width: 100%">
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="{% url 'mytrading:home' %}">
-        <img src="{% static 'img/icon40x40.png' %}"
-          style="height: 30px; width: 30px; margin-right: 10px;">
-        My Trading
-      </a> 
-          <button type="button" class="toggle" id="toggle">
-            <span></span>
-          </button>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.108.0" />
+  <title>{% block title %}{% endblock %}</title>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div style="display: none" id="sidebar" class="sidebar">
-          <nav
-            id="sidebar"
-            class="col-md-2 d-md-block bg-light col-lg-2 sidebar"
-          >
-            <div class="position-sticky pt-2 sidebar-sticky">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">
-                    <span data-feather="home" class="align-text-bottom"></span>
-                    Dashboard
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span data-feather="file" class="align-text-bottom"></span>
-                    Orders
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'mytrading:profile' %}">
-                    <span data-feather="users" class="align-text-bottom"></span>
-                    My Account
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span
-                      data-feather="bar-chart-2"
-                      class="align-text-bottom"
-                    ></span>
-                    Stock Market
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span
-                      data-feather="layers"
-                      class="align-text-bottom"
-                    ></span>
-                    Our API
-                  </a>
-                </li>
-              </ul>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/" />
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/sidebar.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/chatbot.css' %}" rel="stylesheet" />
 
-              <h6
-                class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase"
-              >
-                <span>Saved reports</span>
-                <a
-                  class="link-secondary"
-                  href="#"
-                  aria-label="Add a new report"
-                >
-                  <span
-                    data-feather="plus-circle"
-                    class="align-text-bottom"
-                  ></span>
+</head>
+
+<body style="width: 100%">
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="{% url 'mytrading:home' %}">
+      <img src="{% static 'img/icon40x40.png' %}" style="height: 30px; width: 30px; margin-right: 10px;">
+      My Trading
+    </a>
+    <button type="button" class="toggle" id="toggle">
+      <span></span>
+    </button>
+  </header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div style="display: none" id="sidebar" class="sidebar">
+        <nav id="sidebar" class="col-md-2 d-md-block bg-light col-lg-2 sidebar">
+          <div class="position-sticky pt-2 sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">
+                  <span data-feather="home" class="align-text-bottom"></span>
+                  Dashboard
                 </a>
-              </h6>
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span
-                      data-feather="file-text"
-                      class="align-text-bottom"
-                    ></span>
-                    Current month
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span
-                      data-feather="file-text"
-                      class="align-text-bottom"
-                    ></span>
-                    Last quarter
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span
-                      data-feather="file-text"
-                      class="align-text-bottom"
-                    ></span>
-                    Social engagement
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span
-                      data-feather="file-text"
-                      class="align-text-bottom"
-                    ></span>
-                    Year-end sale
-                  </a>
-                </li>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  Orders
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'mytrading:profile' %}">
+                  <span data-feather="users" class="align-text-bottom"></span>
+                  My Account
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                  Stock Market
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="layers" class="align-text-bottom"></span>
+                  Our API
+                </a>
+              </li>
+            </ul>
 
-              </ul>
-              <div class="d-flex flex-column align-items-center justify-content-end position-fixed bottom-0" style="width: 16.66%;">
-                <a class="btn btn-primary text-center my-3" href="{% url 'account_logout' %}"
-                  >Sign out</a
-                >
-              </div>
-            </div>
+            <h6
+              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+              <span>Saved reports</span>
+              <a class="link-secondary" href="#" aria-label="Add a new report">
+                <span data-feather="plus-circle" class="align-text-bottom"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  Current month
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  Last quarter
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  Social engagement
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  Year-end sale
+                </a>
+              </li>
 
-          </nav>
-        </div>
-
-        <main
-          class="col-md-12 ms-sm-auto col-lg-12 px-md-4"
-          id="toggle-sidebar"
-        >
-          {% block content %} {% endblock %}
-          <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-        </main>
-      </div>
-    </div>
-
-    <script src="{% static 'css/bootstrap.bundle.min.js' %}"></script>
-    <script
-      src="{% static 'css/feather.min.js' %}"
-      integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-      crossorigin="anonymous"
-    ></script>
-    <script src="{% static 'css/dashboard.js' %}"></script>
-    <!-- This is the script to make the navigation button for the side bar -->
-    <script>
-      var btn = document.querySelector(".toggle");
-      var btnst = true;
-      btn.onclick = function () {
-        if (btnst == true) {
-          document.querySelector(".toggle span").classList.add("toggle");
-          document.getElementById("sidebar").classList.add("sidebarshow");
-          btnst = false;
-        } else if (btnst == false) {
-          document.querySelector(".toggle span").classList.remove("toggle");
-          document.getElementById("sidebar").classList.remove("sidebarshow");
-          btnst = true;
-        }
-      };
-    </script>
-
-    <!-- This is the script for making the sliding sidebar -->
-    <script>
-      document
-        .getElementById("toggle")
-        .addEventListener("click", function (event) {
-          event.preventDefault();
-
-          var sidebar = document.getElementById("sidebar");
-          var main = document.querySelector("main");
-
-          if (sidebar.style.display === "none") {
-            sidebar.style.display = "block";
-            sidebar.style.width = "16.666666%";
-            main.style.width = "100%";
-            main.style.opacity = "50%";
-          } else {
-            sidebar.style.display = "none";
-            main.style.width = "100%";
-            main.style.opacity = "100%";
-          }
-        });
-    </script>
-    <!-- this part is for chatbot -->
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <button class="chatbot-btn" data-toggle="modal" data-target="#chatbot-modal"></button>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="chatbot-modal" tabindex="-1" role="dialog" aria-labelledby="chatbot-modal-label" aria-hidden="true">
-      <div class="modal-dialog  modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="chatbot-modal-label">
-              <i class="fa fa-comments" aria-hidden="true"></i> Stock Trading Chatbot
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="chat-container">
-              <div class="chat-area">
-              </div>
-              <div class="input-area">
-                <form id="chatbot-form" method="post">
-                  {% csrf_token %}
-                  <label for="ticker">Ticker:</label>
-                  <input type="text" id="ticker" name="ticker" required>
-                  <br>
-                  <label for="statement">Statement:</label>
-                  <input type="text" id="statement" name="statement" required>
-                  <br>
-                  <button type="submit">Submit</button>
-              </form>
-              </div>
+            </ul>
+            <div class="d-flex flex-column align-items-center justify-content-end position-fixed bottom-0"
+              style="width: 16.66%;">
+              <a class="btn btn-primary text-center my-3" href="{% url 'account_logout' %}">Sign out</a>
             </div>
           </div>
-        </div>
+
+        </nav>
       </div>
+
+      <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4" id="toggle-sidebar">
+        {% block content %} {% endblock %}
+        <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+      </main>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/chatbot.js' %}"></script>
-    <script>
-      $(document).ready(function () {
-        // Open the chatbot modal when the chatbot button is clicked
-        $('#chatbot-btn').on('click', function () {
-          $('#chatbot-modal').modal('show');
-        });
-    
-        // Handle the chatbot modal close event
-        $('#chatbot-modal').on('hidden.bs.modal', function () {
-          // Remove the chat area messages
-          $(this).find('.chat-area').empty();
-    
-          // Manually remove the modal-open class and fix the scrolling issue
-          $('body').removeClass('modal-open');
-          $('body').css('padding-right', '');
-          $('body').css('overflow', '');
-        });
-      });
-    </script>   
-    <script>
- $(function() {
-  var username = "{{ user.first_name }}";
-  $('.chatbot-btn').on('click', function() {
-    $('#chatbot-modal').modal('show');
-  });
+  </div>
 
-  $('#chatbot-modal').on('hidden.bs.modal', function () {
-    $(this).find('.chat-area').empty();
-    $('.modal-backdrop').remove();
-  });
-
-  $('#chatbot-form').submit(function(event) {
-    event.preventDefault();
-    var ticker = $('#ticker').val();
-    var statement = $('#statement').val();
-    send_message(ticker, statement);
-    $('#ticker').val('');
-    $('#statement').val('');
-  });
-
-  function send_message(ticker, statement) {
-    console.log('send_message called');
-    $.ajax({
-      url: '/home/chatbot/',
-      type: 'POST',
-      data: {
-        'ticker': ticker,
-        'statement': statement,
-        'csrfmiddlewaretoken': '{{ csrf_token }}'
-      },
-      dataType: 'json',
-      success: function(data) {
-        display_message(username, statement);
-        display_message('Trado', data.response);
-      },
-      error: function(xhr, status, error) {
-        console.log('Error: ' + error.message);
+  <script src="{% static 'css/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'css/feather.min.js' %}"
+    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'css/dashboard.js' %}"></script>
+  <!-- This is the script to make the navigation button for the side bar -->
+  <script>
+    var btn = document.querySelector(".toggle");
+    var btnst = true;
+    btn.onclick = function () {
+      if (btnst == true) {
+        document.querySelector(".toggle span").classList.add("toggle");
+        document.getElementById("sidebar").classList.add("sidebarshow");
+        btnst = false;
+      } else if (btnst == false) {
+        document.querySelector(".toggle span").classList.remove("toggle");
+        document.getElementById("sidebar").classList.remove("sidebarshow");
+        btnst = true;
       }
+    };
+  </script>
+
+  <!-- This is the script for making the sliding sidebar -->
+  <script>
+    document
+      .getElementById("toggle")
+      .addEventListener("click", function (event) {
+        event.preventDefault();
+
+        var sidebar = document.getElementById("sidebar");
+        var main = document.querySelector("main");
+
+        if (sidebar.style.display === "none") {
+          sidebar.style.display = "block";
+          sidebar.style.width = "16.666666%";
+          main.style.width = "100%";
+          main.style.opacity = "50%";
+        } else {
+          sidebar.style.display = "none";
+          main.style.width = "100%";
+          main.style.opacity = "100%";
+        }
+      });
+  </script>
+  <!-- this part is for chatbot -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <button class="chatbot-btn" data-toggle="modal" data-target="#chatbot-modal"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="chatbot-modal" tabindex="-1" role="dialog" aria-labelledby="chatbot-modal-label"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="chatbot-modal-label">
+            <i class="fa fa-comments" aria-hidden="true"></i> Stock Trading Chatbot
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="chat-container">
+            <div class="chat-area">
+            </div>
+            <div class="input-area">
+              <form id="chatbot-form" method="post">
+                {% csrf_token %}
+                <label for="ticker">Ticker:</label>
+                <input type="text" id="ticker" name="ticker" required>
+                <br>
+                <label for="statement">Statement:</label>
+                <input type="text" id="statement" name="statement" required>
+                <br>
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="{% static 'css/chatbot2.js' %}"></script>
+  <script> 
+  $(function() {
+    var username = "{{ user.first_name }}";
+    $('.chatbot-btn').on('click', function() {
+      $('#chatbot-modal').modal('show');
     });
-  }
+  
+    $('#chatbot-modal').on('hidden.bs.modal', function () {
+      $(this).find('.chat-area').empty();
+      $('.modal-backdrop').remove();
+    });
+  
+    $('#chatbot-form').submit(function(event) {
+      event.preventDefault();
+      var ticker = $('#ticker').val();
+      var statement = $('#statement').val();
+      send_message(ticker, statement);
+      $('#ticker').val('');
+      $('#statement').val('');
+    });
+  
+    function send_message(ticker, statement) {
+      console.log('send_message called');
+      $.ajax({
+        url: '/home/chatbot/',
+        type: 'POST',
+        data: {
+          'ticker': ticker,
+          'statement': statement,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+          display_message(username, statement);
+          display_message('Trado', data.response);
+        },
+        error: function(xhr, status, error) {
+          console.log('Error: ' + error.message);
+        }
+      });
+    }
+  
+    function display_message(sender, message) {
+      var chat_area = $('.chat-area');
+      var message_div = $('<div>', {'class': 'message'});
+      var sender_div = $('<div>', {'class': 'message-sender'});
+      var text_div = $('<div>', {'class': 'message-text'});
+      sender_div.text(sender + ':');
+      text_div.text(message);
+      message_div.append(sender_div).append(text_div);
+      chat_area.append(message_div);
+      chat_area.scrollTop(chat_area.prop('scrollHeight'));
+    }
+  });</script>
 
-  function display_message(sender, message) {
-    var chat_area = $('.chat-area');
-    var message_div = $('<div>', {'class': 'message'});
-    var sender_div = $('<div>', {'class': 'message-sender'});
-    var text_div = $('<div>', {'class': 'message-text'});
-    sender_div.text(sender + ':');
-    text_div.text(message);
-    message_div.append(sender_div).append(text_div);
-    chat_area.append(message_div);
-    chat_area.scrollTop(chat_area.prop('scrollHeight'));
-  }
-});
-    </script> 
 
+</body>
 
-
-  </body>
 </html>
