@@ -159,15 +159,16 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 
 # SIGNUP AND LOGIN SETTINGS
-ACCOUNT_EMAIL_VERIFICATION = (
-    "mandatory"  # "mandatory"   # none for no email confirmation
-)
+ACCOUNT_EMAIL_VERIFICATION = None
+# (
+#     "mandatory"  # "mandatory"   # none for no email confirmation
+# )
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 LOGIN_REDIRECT_URL = "/home/"
 LOGIN_URL = "/accounts/login/"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
 RESTRICTION_AGE = 18
-ACCOUNT_EMAIL_REQUIRED = True  # false for no email confirmation
+ACCOUNT_EMAIL_REQUIRED = False  # false for no email confirmation
 
 
 # CUSTOM SIGNUP FORM

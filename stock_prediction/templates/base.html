@@ -16,7 +16,30 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/sidebar.css' %}" rel="stylesheet" />
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
-
+    <link href="{% static 'css/chatbot.css' %}" rel="stylesheet"  />
+    <style>
+      .chatbot-btn {
+        background-image: url('{% static "img/chatbot.png" %}');
+        background-size: cover;
+        position: fixed;
+        bottom: 50px;
+        right: 20px;
+        
+        width: 130px;
+        height: 60px;
+        border: none;
+      }
+      .modal-dialog {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: 300px;
+        height: 600px;
+      }
+      body.modal-open {
+        overflow: initial !important;
+      }
+    </style>
   </head>
   <body style="width: 100%">
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -197,5 +220,128 @@
           }
         });
     </script>
+    <!-- this part is for chatbot -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <button class="chatbot-btn" data-toggle="modal" data-target="#chatbot-modal"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="chatbot-modal" tabindex="-1" role="dialog" aria-labelledby="chatbot-modal-label" aria-hidden="true">
+      <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="chatbot-modal-label">
+              <i class="fa fa-comments" aria-hidden="true"></i> Stock Trading Chatbot
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="chat-container">
+              <div class="chat-area">
+              </div>
+              <div class="input-area">
+                <form id="chatbot-form" method="post">
+                  {% csrf_token %}
+                  <label for="ticker">Ticker:</label>
+                  <input type="text" id="ticker" name="ticker" required>
+                  <br>
+                  <label for="statement">Statement:</label>
+                  <input type="text" id="statement" name="statement" required>
+                  <br>
+                  <button type="submit">Submit</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
+    <script>
+      $(document).ready(function () {
+        // Open the chatbot modal when the chatbot button is clicked
+        $('#chatbot-btn').on('click', function () {
+          $('#chatbot-modal').modal('show');
+        });
+    
+        // Handle the chatbot modal close event
+        $('#chatbot-modal').on('hidden.bs.modal', function () {
+          // Remove the chat area messages
+          $(this).find('.chat-area').empty();
+    
+          // Manually remove the modal-open class and fix the scrolling issue
+          $('body').removeClass('modal-open');
+          $('body').css('padding-right', '');
+          $('body').css('overflow', '');
+        });
+      });
+    </script>   
+    <script>
+ $(function() {
+  var username = "{{ user.first_name }}";
+  $('.chatbot-btn').on('click', function() {
+    $('#chatbot-modal').modal('show');
+  });
+
+  $('#chatbot-modal').on('hidden.bs.modal', function () {
+    $(this).find('.chat-area').empty();
+    $('.modal-backdrop').remove();
+  });
+
+  $('#chatbot-form').submit(function(event) {
+    event.preventDefault();
+    var ticker = $('#ticker').val();
+    var statement = $('#statement').val();
+    send_message(ticker, statement);
+    $('#ticker').val('');
+    $('#statement').val('');
+  });
+
+  function send_message(ticker, statement) {
+    console.log('send_message called');
+    $.ajax({
+      url: '/home/chatbot/',
+      type: 'POST',
+      data: {
+        'ticker': ticker,
+        'statement': statement,
+        'csrfmiddlewaretoken': '{{ csrf_token }}'
+      },
+      dataType: 'json',
+      success: function(data) {
+        display_message(username, statement);
+        display_message('Trado', data.response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error: ' + error.message);
+      }
+    });
+  }
+
+  function display_message(sender, message) {
+    var chat_area = $('.chat-area');
+    var message_div = $('<div>', {'class': 'message'});
+    var sender_div = $('<div>', {'class': 'message-sender'});
+    var text_div = $('<div>', {'class': 'message-text'});
+    sender_div.text(sender + ':');
+    text_div.text(message);
+    message_div.append(sender_div).append(text_div);
+    chat_area.append(message_div);
+    chat_area.scrollTop(chat_area.prop('scrollHeight'));
+  }
+});
+    </script> 
+
+
+
   </body>
 </html>

@@ -39,7 +39,7 @@
     margin-bottom: 5px;
   }
   
-  button[type="submit"] {
+  /* button[type="submit"] {
     width: 100%;
     padding: 5px;
     background-color: rgb(182, 25, 25);
@@ -51,5 +51,5 @@
   
   button[type="submit"]:hover {
     background-color: rgb(140, 20, 20);
-  }
+  } */
   
