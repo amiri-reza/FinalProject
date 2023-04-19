@@ -161,8 +161,8 @@
         }
       });
   </script>
-  <!-- this part is for chatbot -->
-  <div class="container">
+   <!-- this part is for chatbot -->
+   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <button class="chatbot-btn" data-toggle="modal" data-target="#chatbot-modal"></button>
@@ -178,7 +178,7 @@
           <h5 class="modal-title" id="chatbot-modal-label">
             <i class="fa fa-comments" aria-hidden="true"></i> Stock Trading Chatbot
           </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -195,7 +195,7 @@
                 <label for="statement">Statement:</label>
                 <input type="text" id="statement" name="statement" required>
                 <br>
-                <button type="submit">Submit</button>
+                <button type="submit" class="send-btn">Submit</button>
               </form>
             </div>
           </div>
@@ -208,6 +208,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="{% static 'css/chatbot2.js' %}"></script>
+
+
   <script> 
   $(function() {
     var username = "{{ user.first_name }}";
