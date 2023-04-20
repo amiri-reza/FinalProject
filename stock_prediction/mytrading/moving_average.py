@@ -9,7 +9,7 @@ import time
 import talib as ta
 import time
 from django.core.mail import send_mail
-
+from rerestful_api.models import Signal
 
 class MovingAverageDayTrading:
     def __init__(self, ticker, df_retrieve=False, stop_loss=0.05, take_profit=0.1):
@@ -383,7 +383,55 @@ class MovingAverageDayTrading:
             #     "BUY_EMA_10_25",
             #     "SELL_EMA_10_25",
             # )
-            print(df)
+            # print(df)
+            
+            print(buy_emas)
+
+            def save_signal():
+                buy_emas = df['BUY_EMAs'].tolist()
+                sell_emas = df['SELL_EMAs'].tolist()
+                buy_smas = df['BUY_SMAs'].tolist()
+                sell_smas = df['SELL_SMAs'].tolist()
+
+                buy_ema_10_25 = df['BUY_EMA_10_25'].tolist()
+                sell_ema_10_25 = df['SELL_EMA_10_25'].tolist()
+                buy_ema_25_50 = df['BUY_EMA_25_50'].tolist()
+                sell_ema_25_50 = df['SELL_EMA_25_50'].tolist()
+                buy_ema_10_50 = df['BUY_EMA_10_50'].tolist()
+                sell_ema_10_50 = df['SELL_EMA_10_50'].tolist()
+
+                buy_sma_10_25 = df['BUY_SMA_10_25'].tolist()
+                sell_sma_10_25 = df['SELL_SMA_10_25'].tolist()
+                buy_sma_25_50 = df['BUY_SMA_25_50'].tolist()
+                sell_sma_25_50 = df['SELL_SMA_25_50'].tolist()
+                buy_sma_10_50 = df['BUY_SMA_10_50'].tolist()
+                sell_sma_10_50 = df['SELL_SMA_10_50'].tolist()
+
+                signal = Signal(
+                    buy_emas=buy_emas,
+                    sell_emas=sell_emas,
+                    buy_smas=buy_smas,
+                    sell_smas=sell_smas,
+                    buy_ema_10_25=buy_ema_10_25,
+                    sell_ema_10_25=sell_ema_10_25,
+                    buy_ema_25_50=buy_ema_25_50,
+                    sell_ema_25_50=sell_ema_25_50,
+                    buy_ema_10_50=buy_ema_10_50,
+                    sell_ema_10_50=sell_ema_10_50,
+                    buy_sma_10_25=buy_sma_10_25,
+                    sell_sma_10_25=sell_sma_10_25,
+                    buy_sma_25_50=buy_sma_25_50,
+                    sell_sma_25_50=sell_sma_25_50,
+                    buy_sma_10_50=buy_sma_10_50,
+                    sell_sma_10_50=sell_sma_10_50,
+                )
+
+                
+
+                signal.save()
+               
+            save_signal()
+
             if self.df_retrieve:
                 return df
             # PLOTTING WITH PLOTLY ----------------------------------------------

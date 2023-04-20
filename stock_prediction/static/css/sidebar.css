@@ -17,6 +17,15 @@ button.toggle {
     float: left;
 }
 
+.card-gradient-l {
+    background-image: linear-gradient(135deg, #dac5df 0%, #bb90d6 100%);
+}
+.card-gradient-m {
+    background:#bb90d6;
+}
+.card-gradient-r {
+    background-image: linear-gradient(135deg, #bb90d6 0%, #dac5df 100%);
+}
 
 
 

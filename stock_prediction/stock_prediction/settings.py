@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "NO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "3.76.212.30", "*"]
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     "mytrading",
     "widget_tweaks",
     "geoip2",
-    "crispy_forms",
+    "rerestful_api",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -206,3 +207,9 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 # GEOIP2
 GEOIP_PATH = os.path.join("static/geoip")
 print("------------------------------", GEOIP_PATH)
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, # Adjust this value based on your desired page size
+}

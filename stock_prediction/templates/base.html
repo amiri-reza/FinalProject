@@ -15,7 +15,6 @@
   <link href="{% static 'css/sidebar.css' %}" rel="stylesheet" />
   <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
   <link href="{% static 'css/chatbot.css' %}" rel="stylesheet" />
-
 </head>
 
 <body style="width: 100%">
@@ -48,7 +47,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'signal-list' %}">
                   <span data-feather="layers" class="align-text-bottom"></span>
                   Our API
                 </a>

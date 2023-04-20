@@ -11,6 +11,9 @@ from mytrading.locator import get_location
 from django.http import JsonResponse
 from .chatbot import ChatBotSpacy
 from django.contrib import messages
+import os
+from django.conf import settings
+
 
 
 
@@ -19,18 +22,36 @@ class StockFormView(LoginRequiredMixin, FormView):
     form_class = StocksForm
     success_url = template_name
 
+    def read_ticker_file(self, request):
+        #breakpoint()
+        ticker = request.POST.get('ticker')
+        curr = os.getcwd()
+        file_path = os.path.join(curr, 'static', 'txt', 'NASDAQ.txt')
+        print("___________________________", file_path)
+        with open(file_path, "r") as file:
+            lines = file.readlines()
+        ticker_list = [tuple(line.strip().split("\t")) for line in lines]
+        for symbol, company in ticker_list:
+            if symbol == ticker:
+                print(company, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                return company
+
+
     def post(self, request):
         form = StocksForm(request.POST)
         if form.is_valid():
             ticker = form.cleaned_data.get("ticker")
             ticker_obj = yf.Ticker(ticker)
             plt_div = MovingAverageDayTrading(ticker, stop_loss=0.03, take_profit=0.15)
+            
+            
             context = {
                 "plt_div": plt_div.moving_average_timeframes(),
                 "ticker": ticker_obj,
                 "form": form,
+                "company": self.read_ticker_file(request)
             }
-            return render(request, self.template_name, context)
+            return render(request, "mytrading/home.html", context)
         else:
             form = StocksForm()
 
