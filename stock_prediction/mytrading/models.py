@@ -21,4 +21,5 @@ class Trader(AbstractUser):
     login_location = models.JSONField()
 
 
+
 #     # phone number, profile picture, dob, country, is_subscriber, preferred_language

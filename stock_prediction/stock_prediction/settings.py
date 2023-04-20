@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "mytrading",
     "widget_tweaks",
     "geoip2",
+    "rerestful_api",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -205,3 +207,9 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 # GEOIP2
 GEOIP_PATH = os.path.join("static/geoip")
 print("------------------------------", GEOIP_PATH)
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, # Adjust this value based on your desired page size
+}

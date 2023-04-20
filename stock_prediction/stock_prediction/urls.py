@@ -18,6 +18,8 @@ from django.urls import path, include
 from stock_prediction.views import Home
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
+from django.contrib import admin
+from rerestful_api.views import SignalList
 
 urlpatterns = [
     path(
@@ -27,5 +29,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("home/", include("mytrading.urls")),
     path("", Home.as_view(), name="landing_page"),
+    path("restful_api/", SignalList.as_view(), name="Signal-list"),
+    
 
 ]
