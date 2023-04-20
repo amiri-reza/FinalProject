@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django_countries.fields import CountryField
 from mytrading.models import Trader
@@ -7,17 +8,11 @@ import importlib
 from allauth.account.adapter import get_adapter
 from django.conf import settings
 from mytrading.locator import get_location
-
+SignupForm = importlib.import_module("allauth.account.forms")
 
 class StocksForm(forms.Form):
     ticker = forms.CharField(max_length=5)
 
-
-class TradingForm(forms.Form):
-    pass
-
-
-SignupForm = importlib.import_module("allauth.account.forms")
 
 
 class CustomSignupForm(SignupForm.SignupForm):
@@ -56,3 +51,27 @@ class CustomSignupForm(SignupForm.SignupForm):
             login_location=login_location,
         )
         return user
+
+
+
+
+class UpdateAccountForm(forms.ModelForm):
+    class Meta:
+        model = Trader
+        fields = [
+            "email",
+            "username",
+        ]
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if Trader.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
+            print(username, '---------------------------------' )
+            raise forms.ValidationError("Username is already taken.")
+        return username
+    
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if Trader.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise ValidationError("Email is already in use.")
+        return email

@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.views.generic import FormView, TemplateView, UpdateView
-from mytrading.forms import StocksForm
+from mytrading.forms import StocksForm, UpdateAccountForm
 from mytrading.moving_average import MovingAverageDayTrading
 import yfinance as yf
 from django.contrib.auth.mixins import LoginRequiredMixin
 from mytrading.models import Trader
 from django.urls import reverse_lazy
-from allauth.account.views import PasswordChangeView
+from allauth.account.views import PasswordChangeView, LoginView
 from mytrading.locator import get_location
+from django.http import JsonResponse
+from .chatbot import ChatBotSpacy
+from django.contrib import messages
+
 
 
 class StockFormView(LoginRequiredMixin, FormView):
@@ -59,11 +63,17 @@ class TraderUpdateView(UpdateView):
 class SecuritySettingsView(UpdateView):
     template_name = "mytrading/update-account.html"
     model = Trader
-    fields = [
-        "email",
-        "username",
-    ]
+    form_class = UpdateAccountForm
     success_url = reverse_lazy("mytrading:profile")
+
+    def form_invalid(self, form):
+        username_errors = form.errors.get("username")
+        if username_errors:
+            messages.error(self.request, username_errors[0])
+        email_errors = form.errors.get("email")
+        if email_errors:
+            messages.error(self.request, email_errors[0])
+        return super().form_invalid(form)
 
 
 class CustomChangePassword(PasswordChangeView):
@@ -73,14 +83,8 @@ class CustomChangePassword(PasswordChangeView):
         )
 
 
-from django.shortcuts import render
-from django.http import JsonResponse
-from .chatbot import ChatBotSpacy
-from mytrading.moving_average import MovingAverageDayTrading
-
 def chatbot(request):
 
-    #breakpoint()
     if request.method == 'POST':
         ticker = request.POST.get('ticker')
         statement = request.POST.get('statement')
@@ -97,3 +101,4 @@ def chatbot(request):
         return JsonResponse({'response': response_text})
 
     return render(request, 'mytrading/chatbot2.html')
+

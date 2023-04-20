@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "mytrading",
     "widget_tweaks",
     "geoip2",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
