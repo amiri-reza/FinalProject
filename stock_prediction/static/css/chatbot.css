@@ -85,58 +85,70 @@
   } */
 
 
-
-
-
+  
   body {
     font-family: "Roboto", "Open Sans", sans-serif;
+    
   }
   
   .chat-container {
     display: flex;
     flex-direction: column;
     height: 100%;
+   
   }
   
   .chat-area {
     flex-grow: 1;
-    height: 350px;
+    height: 290px;
     overflow-y: auto;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08);
+    
   }
   
   .input-area {
     display: flex;
     flex-direction: column;
+    background-color: #546577;
+    color: #FFFFFF;
   }
   
   .message {
     display: flex;
     margin-bottom: 5px;
+    background-color: #546577;
+    color: #FFFFFF;
   }
   
   .message-sender {
     font-weight: bold;
     margin-right: 5px;
+    
   }
   
   .message-text {
     word-wrap: break-word;
+    background-color: #546577;
+    color: #FFFFFF;
   }
   
   input[type="text"] {
     width: 100%;
     padding: 5px;
     margin-bottom: 5px;
+    background-color: #546577;
+    color: #FFFFFF;
   }
   
   label {
     margin-bottom: 5px;
     display: block;
+    color: #ffffff;
+    
   }
   
   .chatbot-btn {
@@ -149,6 +161,7 @@
     width: 130px;
     height: 60px;
     border: none;
+    
   }
   
   .modal-dialog {
@@ -156,7 +169,8 @@
     bottom: 10px;
     right: 10px;
     width: 300px;
-    height: 600px;
+    height: 540px;
+    
   }
   
   body.modal-open {
@@ -165,10 +179,11 @@
   
   .modal-content {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    background-color: #34495e;
   }
   
   .send-btn {
-    background-color: #d813d2;
+    background-color: #c879c6;
     border: none;
     color: white;
     text-align: center;
@@ -183,12 +198,12 @@
   }
   
   .send-btn:hover {
-    background-color: #140acb;
+    background-color: #9995df;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
   }
   
   .close-btn {
-    background-color: #d813d2;
+    background-color: #c879c6;
     border: none;
     color: white;
     font-weight: bold;
@@ -203,7 +218,7 @@
   }
   
   .close-btn:hover {
-    background-color: #140acb;
+    background-color: #9995df;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
   }
   
