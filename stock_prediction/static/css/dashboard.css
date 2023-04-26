@@ -1,5 +1,8 @@
 body {
   font-size: .875rem;
+  /* improvements */
+  font-family: "Roboto", "Open Sans", sans-serif;
+  /* improvements */
 }
 
 .feather {
@@ -23,6 +26,9 @@ body {
   z-index: 100; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  /* improvements */
+  background-color: #242526;
+  /* improvements */
 }
 
 @media (max-width: 767.98px) {
@@ -58,6 +64,12 @@ body {
 
 .sidebar-heading {
   font-size: .75rem;
+  /* improvements */
+  text-transform: uppercase;
+  padding: 10px 16px;
+  color: #cfd1d3;
+  /* improvements */
+  
 }
 
 /*
@@ -67,6 +79,9 @@ body {
 .navbar-brand {
   padding-top: .75rem;
   padding-bottom: .75rem;
+  /* improvements */
+  font-size: 1rem;
+  /* improvements */
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
 }
@@ -108,6 +123,9 @@ body {
   z-index: 100; /* Behind the navbar */
   padding: 0;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  /* improvements */
+  background-color: #242526;
+  /* improvements */
 }
 
 .sidebar-sticky {
@@ -141,6 +159,10 @@ body {
 .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
+  /* improvements */
+  color: #cfd1d3;
+  padding: 10px 16px;
+  /* improvements */
 }
 
 /*
@@ -153,6 +175,10 @@ body {
   font-size: 1rem;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  /* improvements */
+  background-color: #242526;
+  /* improvements */
+  
 }
 
 .navbar .form-control {
@@ -165,6 +191,10 @@ body {
   color: #fff;
   background-color: rgba(255, 255, 255, .1);
   border-color: rgba(255, 255, 255, .1);
+ /* improvements */
+ color: #ffffff;
+  /* improvements */
+
 }
 
 .form-control-dark:focus {
@@ -211,3 +241,17 @@ body {
 .custom-col-width {
   width: 50px;
 }
+
+/* New styles for the sidebar */
+/* improvements */
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  color: #ffffff;
+  background-color: #3a3b3c;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: #ffffff;
+}
+/* improvements */
