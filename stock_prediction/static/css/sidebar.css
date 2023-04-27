@@ -1,4 +1,4 @@
-.nav-item {
+/* .nav-item {
     display: inline-block;
 }
 
@@ -59,6 +59,102 @@ button.toggle {
     top: 8px;
 }
 
+/* horizontal line for toggle button 
+.toggle span.toggle {
+    background: transparent;
+}
+
+/* diagonal line for toggle button 
+.toggle span.toggle:before {
+    top: 0;
+    transform: rotate(-45deg);
+    background: #555;
+
+}
+
+/* diagonal line for toggle button 
+.toggle span.toggle:after {
+    top: 0;
+    transform: rotate(45deg);
+    background: #555;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* General styles */
+.nav-item {
+    display: inline-block;
+}
+
+.navbar-nav-container {
+    display: flex;
+    color: aliceblue;
+}
+
+button.toggle {
+    background: transparent;
+    border: none;
+    width: 45px;
+    height: 30px;
+    cursor: pointer;
+    outline: 0;
+    float: left;
+}
+
+/* Card gradients */
+.card-gradient-l {
+    background-image: linear-gradient(135deg, #dac5df 0%, #bb90d6 100%);
+}
+.card-gradient-m {
+    background: #bb90d6;
+}
+.card-gradient-r {
+    background-image: linear-gradient(135deg, #bb90d6 0%, #dac5df 100%);
+}
+
+/* Toggle button styles */
+.toggle span {
+    width: 100%;
+    height: 3px;
+    background: #555;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    transition: all 0.3s ease-out;
+}
+
+.toggle span:before,
+.toggle span:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #555;
+    transition: all 0.3s ease-out;
+    float: left;
+}
+
+.toggle span:before {
+    top: -8px;
+}
+
+.toggle span:after {
+    top: 8px;
+}
+
 /* horizontal line for toggle button */
 .toggle span.toggle {
     background: transparent;
@@ -69,7 +165,6 @@ button.toggle {
     top: 0;
     transform: rotate(-45deg);
     background: #555;
-
 }
 
 /* diagonal line for toggle button */
@@ -78,6 +173,15 @@ button.toggle {
     transform: rotate(45deg);
     background: #555;
 }
+
+
+
+
+
+
+
+
+
 
 
 
