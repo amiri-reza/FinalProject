@@ -15,4 +15,5 @@ google-api-python-client
 oauth2client
 jsonpickle
 geoip2
-
+djangorestframework
+spacy
