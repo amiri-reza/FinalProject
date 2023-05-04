@@ -1,15 +1,14 @@
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import plotly.offline as plot
 import pandas as pd
 import numpy as np
 import yfinance as yf
 from datetime import timedelta, datetime
-import time
 import talib as ta
 import time
-from django.core.mail import send_mail
 from rerestful_api.models import Signal
+import math
+
 
 class MovingAverageDayTrading:
     def __init__(self, ticker, df_retrieve=False, stop_loss=0.05, take_profit=0.1):
@@ -17,7 +16,9 @@ class MovingAverageDayTrading:
         self.df_retrieve = df_retrieve
         self.stop_loss = stop_loss
         self.take_profit = take_profit
-        # This way, when an instance of the class is created, the self.stop_loss and self.take_profit will be set with default values of 0.05 and 0.1 respectively. These values can be overridden when an instance of the class is created by passing a different value for stop_loss and take_profit.
+        # This way, when an instance of the class is created, the self.stop_loss and self.take_profit
+        #  will be set with default values of 0.05 and 0.1 respectively. These values can be overridden
+        # when an instance of the class is created by passing a different value for stop_loss and take_profit.
 
     def moving_average_timeframes(self):
         #  QUERYING DATA --------------------------------------------
@@ -25,12 +26,9 @@ class MovingAverageDayTrading:
             end = datetime.today()
             start = end - timedelta(days=7)
             df = yf.download(self.ticker, start=start, end=end, interval="1m")
-            print(f"--------{df}__________")
-            print(df.dtypes)
-            print(f"index typeeeee : {df.index.dtype}")
 
-            # check the interval of your dataframe by using the df.resample function with the same interval of data you want to work with
-            ## df.resample('1min')
+            # check the interval of your dataframe by using the df.resample function with
+            # the same interval of data you want to work with
 
             #  SETTING UP DATA: ADDING COLUMNS FOR MA  --------------------------------------
 
@@ -39,7 +37,10 @@ class MovingAverageDayTrading:
             df["EMA_10"] = df["Adj Close"].ewm(span=10, adjust=False).mean()
             df["EMA_25"] = df["Adj Close"].ewm(span=25, adjust=False).mean()
             df["EMA_50"] = df["Adj Close"].ewm(span=50, adjust=False).mean()
-            # the ewm() method to calculate the EMA, passing in the window size or span, which is the number of periods to use in the moving average. You can also adjust whether or not to apply some decay to the weights by adjusting the adjust parameter. By default is set to True, but it depends on the use case.
+            # the ewm() method to calculate the EMA, passing in the window size or span,
+            #  which is the number of periods to use in the moving average. You can also
+            #  adjust whether or not to apply some decay to the weights by adjusting the
+            #  adjust parameter. By default is set to True, but it depends on the use case.
 
             # Simple Moving Averages
             df["SMA_10"] = df["Close"].rolling(window=10).mean()
@@ -63,39 +64,24 @@ class MovingAverageDayTrading:
             df["MACD"], df["MACD_signal"], df["MACD_hist"] = ta.MACD(df["Adj Close"])
 
             # CLEANING DATA ------------------------------------------
-
-            print(df.dtypes)
-
             # check if the data is sorted correctly by running
             df.sort_index(inplace=True)
 
             # fill the empty spaces with what we want to fill it out
             df.fillna(method="ffill", inplace=True)
 
-            print(f"HHHHHHHHHHHHHH {type(df.index)}")
-
             # Remove any rows with missing values
             df = df.dropna()
 
-            # df = df[['Adj Close', 'EMA_10', 'EMA_25', 'EMA_50', 'SMA_5', 'SMA_8', 'SMA_13', 'BOL_upper','STO_slowk', 'RSI', 'MACD']]
-
-            print(f"SHAPEEEEEEEEEEE  {df.shape}")
+            # df = df[['Adj Close', 'EMA_10', 'EMA_25', 'EMA_50', 'SMA_5', 'SMA_8',
+            #  'SMA_13', 'BOL_upper','STO_slowk', 'RSI', 'MACD']]
 
             if self.stop_loss is None or self.take_profit is None:
                 raise ValueError(
                     "stop_loss and take_profit values must be set before using them"
                 )
-
-            # DEBUGGING --------
-
-            print(df)
-            print(f"@@@@@@@@@@{df.columns}@@@@@@@@@@")
-            print(df.columns[0])
-
-            print(f"fFFFFFFFFFFFFFFFF {df.index}")
-            print(df["EMA_10"])
-
-            # FINDING THE GAPS IN THE INDEX OR X AXE TO REFRAME THE DATAFRAME TO ERASE THE SPACES FROM DATA WE PREV CLEANED -----------
+            # FINDING THE GAPS IN THE INDEX OR X AXE TO REFRAME THE DATAFRAME
+            #  TO ERASE THE SPACES FROM DATA WE PREV CLEANED -----------
 
             # Specify minimum time gap in nanoseconds.
             TIME_GAP = 60000000000
@@ -145,31 +131,6 @@ class MovingAverageDayTrading:
                 df[sell] = df[sell].where(
                     df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan
                 )
-
-            # def signals(ma_1, ma_2, ma_3, df, list1, list2, buy, sell):
-
-            #     for date, row in df.iterrows():
-            #         if (
-            #             (row[ma_1] < row["Adj Close"])
-            #             & (row[ma_2] < row["Adj Close"])
-            #             & (row[ma_3] < row["Adj Close"])
-            #         ):
-            #             list1.append(date)
-
-            #         if (
-            #             (row[ma_1] > row["Adj Close"])
-            #             & (row["EMA_25"] > row["Adj Close"])
-            #             & (row["EMA_50"] > row["Adj Close"])
-            #         ):
-            #             list2.append(date)
-
-            #     df[buy] = df["Adj Close"]
-            #     df[sell] = df["Adj Close"]
-            #     for date in df.index:
-            #         if date not in list1:
-            #             df[buy].at[date] = np.nan
-            #         if date not in list2:
-            #             df[sell].at[date] = np.nan
 
             signals(
                 "EMA_10",
@@ -223,23 +184,6 @@ class MovingAverageDayTrading:
                 df[sell] = df[sell].where(
                     df.groupby(mask1.cumsum()).cumcount() <= 1, np.nan
                 )
-
-            # def signal_cross(ma_1, ma_2, df, list1, list2, buy, sell):
-
-            #     for date, row in df.iterrows():
-            #         if row[ma_1] < row[ma_2]:
-            #             list2.append(date)
-
-            #         if row[ma_1] > row[ma_2]:
-            #             list1.append(date)
-
-            #     df[buy] = df["Adj Close"]
-            #     df[sell] = df["Adj Close"]
-            #     for date in df.index:
-            #         if date not in list1:
-            #             df[buy].at[date] = np.nan
-            #         if date not in list2:
-            #             df[sell].at[date] = np.nan
 
             signal_cross(
                 "EMA_10",
@@ -312,12 +256,14 @@ class MovingAverageDayTrading:
                     elif (row[bol_middle] >= row[bol_upper]) and (
                         row[bol_middle] > row[bol_lower]
                     ):
-                        # Asset price crossing above upper Bollinger Band or touching the upper Bollinger Band and then crossing back down
+                        # Asset price crossing above upper Bollinger Band or touching
+                        #  the upper Bollinger Band and then crossing back down
                         list2.append(date)
                     elif (row[bol_middle] <= row[bol_lower]) and (
                         row[bol_middle] < row[bol_upper]
                     ):
-                        # Asset price crossing below lower Bollinger Band or touching the lower Bollinger Band and then crossing back up
+                        # Asset price crossing below lower Bollinger Band or touching
+                        #  the lower Bollinger Band and then crossing back up
                         list1.append(date)
                     elif row[bol_middle] > row[bol_upper]:
                         # Asset price exiting Bollinger Bands
@@ -344,99 +290,75 @@ class MovingAverageDayTrading:
                 "BUY_bollinger",
                 "SELL_bollinger",
             )
-            print(buy_bollinger)
-            print(sell_bollinger)
 
-            # buy_sma_10_50 = []
-            # sell_sma_10_50 = []
+            if self.ticker:
 
-            # def stochastic_oscillator(
-            #     sto_slowk, sto_slowd, df, list1, list2, buy, sell
-            # ):
+                def save_signal(self):
+                    ticker = self.ticker
+                    buy_emas = df["BUY_EMAs"].tolist()
+                    sell_emas = df["SELL_EMAs"].tolist()
+                    buy_smas = df["BUY_SMAs"].tolist()
+                    sell_smas = df["SELL_SMAs"].tolist()
+                    buy_ema_10_25 = df["BUY_EMA_10_25"].tolist()
+                    sell_ema_10_25 = df["SELL_EMA_10_25"].tolist()
+                    buy_ema_25_50 = df["BUY_EMA_25_50"].tolist()
+                    sell_ema_25_50 = df["SELL_EMA_25_50"].tolist()
+                    buy_ema_10_50 = df["BUY_EMA_10_50"].tolist()
+                    sell_ema_10_50 = df["SELL_EMA_10_50"].tolist()
 
-            #     for date, row in df.iterrows():
-            #         # for loop with the logic to find buy and sell signals
-            #         for date, row in df.iterrows():
-            #             if row[sto_slowk] > row[sto_slowd] and row[sto_slowk].shift(
-            #                 1
-            #             ) <= row[sto_slowd].shift(1):
-            #                 list1.append(date)
-            #             if row[sto_slowk] < row[sto_slowd] and row[sto_slowk].shift(
-            #                 1
-            #             ) >= row[sto_slowd].shift(1):
-            #                 list2.append(date)
+                    buy_sma_10_25 = df["BUY_SMA_10_25"].tolist()
+                    sell_sma_10_25 = df["SELL_SMA_10_25"].tolist()
+                    buy_sma_25_50 = df["BUY_SMA_25_50"].tolist()
+                    sell_sma_25_50 = df["SELL_SMA_25_50"].tolist()
+                    buy_sma_10_50 = df["BUY_SMA_10_50"].tolist()
+                    sell_sma_10_50 = df["SELL_SMA_10_50"].tolist()
 
-            #     df[buy] = df["Adj Close"]
-            #     df[sell] = df["Adj Close"]
-            #     for date in df.index:
-            #         if date not in list1:
-            #             df[buy].at[date] = np.nan
-            #         if date not in list2:
-            #             df[sell].at[date] = np.nan
+                    buy_emas = [x for x in buy_emas if not math.isnan(x)]
+                    sell_emas = [x for x in sell_emas if not math.isnan(x)]
+                    buy_smas = [x for x in buy_smas if not math.isnan(x)]
+                    sell_smas = [x for x in sell_smas if not math.isnan(x)]
 
-            # stochastic_oscillator(
-            #     "EMA_10",
-            #     "EMA_25",
-            #     df,
-            #     buy_ema_10_25,
-            #     sell_ema_10_25,
-            #     "BUY_EMA_10_25",
-            #     "SELL_EMA_10_25",
-            # )
-            # print(df)
-            
-            print(buy_emas)
+                    buy_ema_10_25 = [x for x in buy_ema_10_25 if not math.isnan(x)]
+                    sell_ema_10_25 = [x for x in sell_ema_10_25 if not math.isnan(x)]
+                    buy_ema_25_50 = [x for x in buy_ema_25_50 if not math.isnan(x)]
+                    sell_ema_25_50 = [x for x in sell_ema_25_50 if not math.isnan(x)]
+                    buy_ema_10_50 = [x for x in buy_ema_10_50 if not math.isnan(x)]
+                    sell_ema_10_50 = [x for x in sell_ema_10_50 if not math.isnan(x)]
 
-            def save_signal():
-                buy_emas = df['BUY_EMAs'].tolist()
-                sell_emas = df['SELL_EMAs'].tolist()
-                buy_smas = df['BUY_SMAs'].tolist()
-                sell_smas = df['SELL_SMAs'].tolist()
+                    buy_sma_10_25 = [x for x in buy_sma_10_25 if not math.isnan(x)]
+                    sell_sma_10_25 = [x for x in sell_sma_10_25 if not math.isnan(x)]
+                    buy_sma_25_50 = [x for x in buy_sma_25_50 if not math.isnan(x)]
+                    sell_sma_25_50 = [x for x in sell_sma_25_50 if not math.isnan(x)]
+                    buy_sma_10_50 = [x for x in buy_sma_10_50 if not math.isnan(x)]
+                    sell_sma_10_50 = [x for x in sell_sma_10_50 if not math.isnan(x)]
 
-                buy_ema_10_25 = df['BUY_EMA_10_25'].tolist()
-                sell_ema_10_25 = df['SELL_EMA_10_25'].tolist()
-                buy_ema_25_50 = df['BUY_EMA_25_50'].tolist()
-                sell_ema_25_50 = df['SELL_EMA_25_50'].tolist()
-                buy_ema_10_50 = df['BUY_EMA_10_50'].tolist()
-                sell_ema_10_50 = df['SELL_EMA_10_50'].tolist()
+                    signal = Signal(
+                        ticker=ticker,
+                        buy_emas=buy_emas,
+                        sell_emas=sell_emas,
+                        buy_smas=buy_smas,
+                        sell_smas=sell_smas,
+                        buy_ema_10_25=buy_ema_10_25,
+                        sell_ema_10_25=sell_ema_10_25,
+                        buy_ema_25_50=buy_ema_25_50,
+                        sell_ema_25_50=sell_ema_25_50,
+                        buy_ema_10_50=buy_ema_10_50,
+                        sell_ema_10_50=sell_ema_10_50,
+                        buy_sma_10_25=buy_sma_10_25,
+                        sell_sma_10_25=sell_sma_10_25,
+                        buy_sma_25_50=buy_sma_25_50,
+                        sell_sma_25_50=sell_sma_25_50,
+                        buy_sma_10_50=buy_sma_10_50,
+                        sell_sma_10_50=sell_sma_10_50,
+                    )
+                    signal.save()
 
-                buy_sma_10_25 = df['BUY_SMA_10_25'].tolist()
-                sell_sma_10_25 = df['SELL_SMA_10_25'].tolist()
-                buy_sma_25_50 = df['BUY_SMA_25_50'].tolist()
-                sell_sma_25_50 = df['SELL_SMA_25_50'].tolist()
-                buy_sma_10_50 = df['BUY_SMA_10_50'].tolist()
-                sell_sma_10_50 = df['SELL_SMA_10_50'].tolist()
-
-                signal = Signal(
-                    buy_emas=buy_emas,
-                    sell_emas=sell_emas,
-                    buy_smas=buy_smas,
-                    sell_smas=sell_smas,
-                    buy_ema_10_25=buy_ema_10_25,
-                    sell_ema_10_25=sell_ema_10_25,
-                    buy_ema_25_50=buy_ema_25_50,
-                    sell_ema_25_50=sell_ema_25_50,
-                    buy_ema_10_50=buy_ema_10_50,
-                    sell_ema_10_50=sell_ema_10_50,
-                    buy_sma_10_25=buy_sma_10_25,
-                    sell_sma_10_25=sell_sma_10_25,
-                    buy_sma_25_50=buy_sma_25_50,
-                    sell_sma_25_50=sell_sma_25_50,
-                    buy_sma_10_50=buy_sma_10_50,
-                    sell_sma_10_50=sell_sma_10_50,
-                )
-
-                
-
-                signal.save()
-               
-            save_signal()
+                save_signal(self)
 
             if self.df_retrieve:
                 return df
             # PLOTTING WITH PLOTLY ----------------------------------------------
 
-            # fig = go.Figure()
             fig = make_subplots(
                 rows=2,
                 cols=1,
@@ -1442,25 +1364,5 @@ class MovingAverageDayTrading:
                     )
                 ]
             )
-
             fig.update_layout(height=800)
-            # plt_div = plot(fig, output_type='div')
-            # return fig.show()
-            # print(plt_div)
-            # return plt_div
             return fig.to_html()
-
-
-if __name__ == "__main__":
-    tickers = ["GOOG", "TSLA", ""]
-    volatile_tickers = ["ROST", "CNEY"]
-    average = MovingAverageDayTrading(
-        volatile_tickers[0], stop_loss=0.03, take_profit=0.15
-    )
-    start = time.time()
-    average.moving_average_timeframes()
-    finish = time.time()
-    print(finish - start)
-
-    # ticker = yf.Ticker('GOOG')
-    # print(ticker.fast_info.currency)

@@ -6,15 +6,12 @@ import yfinance as yf
 from django.contrib.auth.mixins import LoginRequiredMixin
 from mytrading.models import Trader
 from django.urls import reverse_lazy
-from allauth.account.views import PasswordChangeView, LoginView
+from allauth.account.views import PasswordChangeView
 from mytrading.locator import get_location
 from django.http import JsonResponse
 from .chatbot import ChatBotSpacy
 from django.contrib import messages
 import os
-from django.conf import settings
-
-
 
 
 class StockFormView(LoginRequiredMixin, FormView):
@@ -23,19 +20,15 @@ class StockFormView(LoginRequiredMixin, FormView):
     success_url = template_name
 
     def read_ticker_file(self, request):
-        #breakpoint()
-        ticker = request.POST.get('ticker')
+        ticker = request.POST.get("ticker")
         curr = os.getcwd()
-        file_path = os.path.join(curr, 'static', 'txt', 'NASDAQ.txt')
-        print("___________________________", file_path)
+        file_path = os.path.join(curr, "stock_prediction" ,"static", "txt", "NASDAQ.txt")
         with open(file_path, "r") as file:
             lines = file.readlines()
         ticker_list = [tuple(line.strip().split("\t")) for line in lines]
         for symbol, company in ticker_list:
             if symbol == ticker:
-                print(company, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
                 return company
-
 
     def post(self, request):
         form = StocksForm(request.POST)
@@ -43,13 +36,11 @@ class StockFormView(LoginRequiredMixin, FormView):
             ticker = form.cleaned_data.get("ticker")
             ticker_obj = yf.Ticker(ticker)
             plt_div = MovingAverageDayTrading(ticker, stop_loss=0.03, take_profit=0.15)
-            
-            
             context = {
                 "plt_div": plt_div.moving_average_timeframes(),
                 "ticker": ticker_obj,
                 "form": form,
-                "company": self.read_ticker_file(request)
+                "company": self.read_ticker_file(request),
             }
             return render(request, "mytrading/home.html", context)
         else:
@@ -105,21 +96,20 @@ class CustomChangePassword(PasswordChangeView):
 
 
 def chatbot(request):
-
-    if request.method == 'POST':
-        ticker = request.POST.get('ticker')
-        statement = request.POST.get('statement')
-        print("----------------------------------------", ticker, statement)
-        average = MovingAverageDayTrading(ticker, df_retrieve=True, stop_loss=0.03, take_profit=0.15)
+    if request.method == "POST":
+        ticker = request.POST.get("ticker")
+        statement = request.POST.get("statement")
+        average = MovingAverageDayTrading(
+            ticker, df_retrieve=True, stop_loss=0.03, take_profit=0.15
+        )
         df = average.moving_average_timeframes()
 
         chatbot_response = ChatBotSpacy(ticker, df, statement)
         response_text = chatbot_response.chatbot()
-        print("----------------------------------------")
         if response_text is None:
-            response_text = "Sorry I don't understand that. Please rephrase your statement."
+            response_text = (
+                "Sorry I don't understand that. Please rephrase your statement."
+            )
+        return JsonResponse({"response": response_text})
 
-        return JsonResponse({'response': response_text})
-
-    return render(request, 'mytrading/chatbot2.html')
-
+    return render(request, "mytrading/chatbot2.html")

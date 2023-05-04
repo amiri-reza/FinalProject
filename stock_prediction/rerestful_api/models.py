@@ -1,12 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
-# Create your models here.
-from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
+
 class Signal(models.Model):
+    ticker = models.CharField(max_length=12)
     buy_emas = ArrayField(models.FloatField(), blank=True, default=list)
     sell_emas = ArrayField(models.FloatField(), blank=True, default=list)
     buy_smas = ArrayField(models.FloatField(), blank=True, default=list)

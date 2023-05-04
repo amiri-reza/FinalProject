@@ -5,7 +5,6 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mytrading", "0010_alter_trader_date_of_birth"),
     ]

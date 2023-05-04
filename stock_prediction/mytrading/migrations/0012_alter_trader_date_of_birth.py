@@ -5,15 +5,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('mytrading', '0011_alter_trader_date_of_birth'),
+        ("mytrading", "0011_alter_trader_date_of_birth"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='trader',
-            name='date_of_birth',
-            field=models.DateField(default=datetime.datetime(2023, 4, 27, 14, 6, 59, 177732, tzinfo=datetime.timezone.utc)),
+            model_name="trader",
+            name="date_of_birth",
+            field=models.DateField(
+                default=datetime.datetime(
+                    2023, 4, 27, 14, 6, 59, 177732, tzinfo=datetime.timezone.utc
+                )
+            ),
         ),
     ]

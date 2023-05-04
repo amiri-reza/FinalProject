@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mytrading", "0007_alter_trader_date_of_birth"),
     ]

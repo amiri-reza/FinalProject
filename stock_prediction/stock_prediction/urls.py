@@ -30,6 +30,4 @@ urlpatterns = [
     path("home/", include("mytrading.urls")),
     path("", Home.as_view(), name="landing_page"),
     path("restful_api/", SignalList.as_view(), name="signal-list"),
-    
-
 ]

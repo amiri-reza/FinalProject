@@ -8,11 +8,12 @@ import importlib
 from allauth.account.adapter import get_adapter
 from django.conf import settings
 from mytrading.locator import get_location
+
 SignupForm = importlib.import_module("allauth.account.forms")
+
 
 class StocksForm(forms.Form):
     ticker = forms.CharField(max_length=5)
-
 
 
 class CustomSignupForm(SignupForm.SignupForm):
@@ -53,8 +54,6 @@ class CustomSignupForm(SignupForm.SignupForm):
         return user
 
 
-
-
 class UpdateAccountForm(forms.ModelForm):
     class Meta:
         model = Trader
@@ -65,11 +64,14 @@ class UpdateAccountForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
-        if Trader.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
-            print(username, '---------------------------------' )
+        if (
+            Trader.objects.exclude(pk=self.instance.pk)
+            .filter(username=username)
+            .exists()
+        ):
             raise forms.ValidationError("Username is already taken.")
         return username
-    
+
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if Trader.objects.exclude(pk=self.instance.pk).filter(email=email).exists():

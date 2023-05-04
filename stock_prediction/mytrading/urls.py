@@ -5,7 +5,7 @@ from mytrading.views import (
     TraderUpdateView,
     SecuritySettingsView,
     CustomChangePassword,
-    chatbot
+    chatbot,
 )
 
 app_name = "mytrading"
@@ -23,6 +23,5 @@ urlpatterns = [
         CustomChangePassword.as_view(),
         name="change-password",
     ),
-    path('chatbot/', chatbot, name='chatbot'),
-    
+    path("chatbot/", chatbot, name="chatbot"),
 ]

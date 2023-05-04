@@ -142,14 +142,14 @@
     width: 100%;
     padding: 5px;
     margin-bottom: 5px;
-    background-color: #242526;
-    color: #FFFFFF;
+    background-color: #ffffff;
+    color: #000000;
   }
   
   label {
     margin-bottom: 5px;
     display: block;
-    color: #ffffff;
+    color: #000000;
     
   }
   
