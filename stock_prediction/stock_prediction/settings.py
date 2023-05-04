@@ -205,7 +205,7 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 # CSRF_FAILURE_VIEW = 'when there is a failure in csrf token!'
 
 # GEOIP2
-GEOIP_PATH = os.path.join("static/geoip")
+GEOIP_PATH = os.path.join(BASE_DIR, "static/geoip/")
 
 
 REST_FRAMEWORK = {
