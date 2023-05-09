@@ -8,6 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class SignalList(LoginRequiredMixin, generics.ListAPIView):
-    queryset = Signal.objects.all()
+    #queryset = Signal.objects.all()
     serializer_class = SignalSerializer
     pagination_class = PageNumberPagination
+    def get_queryset(self):
+        #breakpoint()
+        trader = self.request.user
+        queryset = Signal.objects.filter(trader=trader)
+        return queryset

@@ -35,7 +35,8 @@ class StockFormView(LoginRequiredMixin, FormView):
         if form.is_valid():
             ticker = form.cleaned_data.get("ticker")
             ticker_obj = yf.Ticker(ticker)
-            plt_div = MovingAverageDayTrading(ticker, stop_loss=0.03, take_profit=0.15)
+            user = request.user
+            plt_div = MovingAverageDayTrading(ticker, user, stop_loss=0.03, take_profit=0.15)
             context = {
                 "plt_div": plt_div.moving_average_timeframes(),
                 "ticker": ticker_obj,

@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
+from mytrading.models import Trader
 
 
 class Signal(models.Model):
+    trader = models.ForeignKey(Trader, on_delete=models.CASCADE)
     ticker = models.CharField(max_length=12)
     buy_emas = ArrayField(models.FloatField(), blank=True, default=list)
     sell_emas = ArrayField(models.FloatField(), blank=True, default=list)

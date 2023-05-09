@@ -11,8 +11,9 @@ import math
 
 
 class MovingAverageDayTrading:
-    def __init__(self, ticker, df_retrieve=False, stop_loss=0.05, take_profit=0.1):
+    def __init__(self, ticker, user, df_retrieve=False, stop_loss=0.05, take_profit=0.1):
         self.ticker = ticker
+        self.user = user
         self.df_retrieve = df_retrieve
         self.stop_loss = stop_loss
         self.take_profit = take_profit
@@ -292,8 +293,8 @@ class MovingAverageDayTrading:
             )
 
             if self.ticker:
-
                 def save_signal(self):
+                    trader = self.user
                     ticker = self.ticker
                     buy_emas = df["BUY_EMAs"].tolist()
                     sell_emas = df["SELL_EMAs"].tolist()
@@ -333,6 +334,7 @@ class MovingAverageDayTrading:
                     sell_sma_10_50 = [x for x in sell_sma_10_50 if not math.isnan(x)]
 
                     signal = Signal(
+                        trader = trader,
                         ticker=ticker,
                         buy_emas=buy_emas,
                         sell_emas=sell_emas,
