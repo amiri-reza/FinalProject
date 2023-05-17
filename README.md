@@ -49,6 +49,7 @@ Whether you're signing in to your existing account or creating a new one, our ap
 
 
 ![login_sign_up_page](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/5ecb782d-6071-43ac-801c-358bab4bb322)
+![login](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/261afa73-2640-41be-8e4d-df16152a68b9)
 
 
 
