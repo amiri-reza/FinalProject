@@ -31,6 +31,51 @@ The Stock Prediction Trading Web Application Software project is a comprehensive
 
 Built using cutting-edge technologies such as Python, Django, Django all-auth, Plotly, yfinance, Pandas, Numpy, and Spacy, this project represents our commitment to combining complex backend algorithms with a user-friendly front-end.
 
+## interface page
+
+
+![interface_page](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/555bb305-2e8e-4908-a3ca-4ffeaafeedde)
+
+
+
+## login sign up page
+
+
+![login_sign_up_page](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/5ecb782d-6071-43ac-801c-358bab4bb322)
+
+
+
+## Home page
+
+
+
+![Home_page](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/77ef7733-ee11-4b79-bde2-eaabd5ce8010)
+
+
+
+## User profile
+
+
+
+![User_profile](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/4ec3822f-a1b6-4955-a953-a34efe16ab12)
+
+
+
+## Navigation bar
+
+
+
+![Navigation_bar](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/e9a5084e-a07c-4962-b4ab-31077818af5e)
+
+
+
+
+## User security seating
+
+
+
+![User_security_seating](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/135c6997-7a5a-414f-860e-dd57d9fe70f6)
+
 
 ## Features
 
@@ -58,12 +103,15 @@ The heart of the application lies in its ability to generate actionable buy and 
 
 To enhance user engagement, we've developed a chatbot app using Spacy and NLP. This chatbot responds to specific questions about the stock, such as volume or asset price, providing users with a conversational interface to access important financial data.
 
-![Screenshot of my project](project image/chatbot.png)
 
+![chatbot](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/91e972d8-7d41-4644-a7f0-e3156739e242)
 
 
 ## RESTful API
 In the spirit of openness and collaboration, we've included a RESTful API in the application to retrieve raw data in JSON format. This feature enables other developers to access the buy and sell signals and use them in their own applications or analytical processes.
+
+
+![API](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/13f3dddf-9c4a-4b28-ad21-d2ed22263292)
 
 
 ## Tech Stack
