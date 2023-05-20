@@ -22,12 +22,12 @@ class StockFormView(LoginRequiredMixin, FormView):
     def read_ticker_file(self, request):
         ticker = request.POST.get("ticker")
         curr = os.getcwd()
-        file_path = os.path.join(curr, "stock_prediction" ,"static", "txt", "NASDAQ.txt")
+        file_path = os.path.join(curr, "static", "txt", "NASDAQ.txt")
         with open(file_path, "r") as file:
             lines = file.readlines()
         ticker_list = [tuple(line.strip().split("\t")) for line in lines]
         for symbol, company in ticker_list:
-            if symbol == ticker:
+            if symbol == ticker.upper():
                 return company
 
     def post(self, request):
