@@ -37,8 +37,8 @@ stock-prediction-teamrando created by GitHub Classroom
  - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Getting_Started.md#getting-started)
  - [License]()
  - [Authors and Acknowledgment]()
- - [🚀 About us](https://github.com/Python-E03/stock-prediction-teamrando#-about-us)
- - [Hi we use github](https://github.com/Python-E03/stock-prediction-teamrando#hi-we-use-github-)
+ - [🚀 About us](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/About_us.md#-about-us)
+ - [Hi we use github](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/WE_USE_GITHUB.md#hi-we-use-github-)
 
 
 
@@ -93,17 +93,8 @@ Our web application’s interface was developed using HTML, CSS, and JavaScript,
 ## Prerequisites
 
 Detailed prerequisites and system requirements (e.g., Python version, Django version, etc.)
-## 🚀 About us
-students at DCI institute
 
 
-# Hi, WE USE GITHUB! 👋
-
-https://github.com/amiri-reza
-
-https://github.com/andresfelipecs
-
-https://github.com/Bhamdou
 
 ## 🔗 Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://katherineoelsner.com/)
