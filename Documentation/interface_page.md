@@ -8,3 +8,6 @@ The design of the interface is clean and straightforward, minimizing distraction
 Here's a preview of our application's user interface:
 
 ![interface_page](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/555bb305-2e8e-4908-a3ca-4ffeaafeedde)
+
+
+Whether you're signing in to your existing account or creating a new one, our application is designed to get you started quickly and efficiently. Stay tuned for more feature additions and interface improvements as we continuously strive to enhance your user experience!
