@@ -4,15 +4,31 @@ stock-prediction-teamrando created by GitHub Classroom
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Table of Contents
 
- - [Overview]()
- - [Features]()
- - [Stock Prediction App]()
+ - [Overview](https://github.com/Python-E03/stock-prediction-teamrando#overview)
+ - [Features](https://github.com/Python-E03/stock-prediction-teamrando#features)
+ - [Stock Prediction App](https://github.com/Python-E03/stock-prediction-teamrando#stock-prediction-app)
  - [Chatbot App](https://github.com/Python-E03/stock-prediction-teamrando#chatbot-app)
- - [RESTful API]()
- - [Tech Stack]()
- - [Getting Started]()
+ - [RESTful API](https://github.com/Python-E03/stock-prediction-teamrando#restful-api)
+ - [Tech Stack](https://github.com/Python-E03/stock-prediction-teamrando#tech-stack)
+ - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando#getting-started)
  - [Prerequisites]()
  - [Installation]()
  - [Testing]()
@@ -20,8 +36,8 @@ stock-prediction-teamrando created by GitHub Classroom
  - [Contributing]()
  - [License]()
  - [Authors and Acknowledgment]()
- - [🚀 About us]()
- - [ Links]()
+ - [🚀 About us](https://github.com/Python-E03/stock-prediction-teamrando#-about-us)
+ - [Hi we use github](https://github.com/Python-E03/stock-prediction-teamrando#hi-we-use-github-)
 
  
 
