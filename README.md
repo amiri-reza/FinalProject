@@ -26,7 +26,7 @@ stock-prediction-teamrando created by GitHub Classroom
  - [Features](https://github.com/Python-E03/stock-prediction-teamrando#features)
  - [Stock Prediction App](https://github.com/Python-E03/stock-prediction-teamrando#stock-prediction-app)
  - [Chatbot App](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Chatbot_App.md#chatbot-app)
- - [RESTful API](https://github.com/Python-E03/stock-prediction-teamrando#restful-api)
+ - [RESTful API](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/RESTful_API.md#restful-api)
  - [Tech Stack](https://github.com/Python-E03/stock-prediction-teamrando#tech-stack)
  - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando#getting-started)
  - [Prerequisites]()
@@ -189,13 +189,6 @@ The heart of the application lies in its ability to generate actionable buy and 
 - Relative Strength Index (RSI)
 - Moving Average Convergence Divergence (MACD)
 
-
-
-## RESTful API
-In the spirit of openness and collaboration, we've included a RESTful API in the application to retrieve raw data in JSON format. This feature enables other developers to access the buy and sell signals and use them in their own applications or analytical processes.
-
-Here's a snapshot of the RESTful API:
-![API](https://github.com/Python-E03/stock-prediction-teamrando/assets/109280801/13f3dddf-9c4a-4b28-ad21-d2ed22263292)
 
 
 ## Tech Stack
