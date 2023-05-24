@@ -78,10 +78,10 @@ The heart of the application lies in its ability to generate actionable buy and 
 
 ## Tech Stack
 
-Our web application’s interface was developed using HTML, CSS, and JavaScript, with backend services developed in Python and Django. Our tech stack is as follows:
+Our web application’s interface was developed using HTML, CSS, and JavaScript, with backend services developed in Python and Django Framework. Our tech stack is as follows:
 
 - Frontend: HTML, CSS, JavaScript
-- Backend: Python, Django, Django all-auth
+- Backend: Python, Django, Django REST Framework, Django all-auth
 - Data Visualization: Plotly
 - Data Manipulation: Pandas, Numpy
 - Stock Data: yfinance
