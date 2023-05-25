@@ -3,45 +3,6 @@ stock-prediction-teamrando created by GitHub Classroom
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Table of Contents
-
- - [Overview](https://github.com/Python-E03/stock-prediction-teamrando#overview)
- - [Features](https://github.com/Python-E03/stock-prediction-teamrando#features)
- - [Stock Prediction App](https://github.com/Python-E03/stock-prediction-teamrando#stock-prediction-app)
- - [Chatbot App](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Chatbot_App.md#chatbot-app)
- - [RESTful API](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/RESTful_API.md#restful-api)
- - [Tech Stack](https://github.com/Python-E03/stock-prediction-teamrando#tech-stack)
- - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando#getting-started)
- - [Prerequisites]()
- - [Installation]()
- - [interface page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/interface_page.md#interface-page)
- - [login sign_up page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/login_sign_up_page.md#login-sign-up-page)
- - [Home page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Home_page.md#home-page)
- - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Getting_Started.md#getting-started)
- - [License]()
- - [Authors and Acknowledgment]()
- - [🚀 About us](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/About_us.md#-about-us)
- - [Hi we use github](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/WE_USE_GITHUB.md#hi-we-use-github-)
-
-
-
 ## Overview
 The Stock Prediction Trading Web Application Software project is a comprehensive full-stack application designed to facilitate intelligent trading decision-making. This application provides an interactive platform for users to predict stock prices, engage with a user-friendly chatbot for financial data, and access a RESTful API for raw data retrieval.
 
@@ -94,6 +55,26 @@ Our web application’s interface was developed using HTML, CSS, and JavaScript,
 
 Detailed prerequisites and system requirements (e.g., Python version, Django version, etc.)
 
+
+## Table of Contents
+
+ - [Overview](https://github.com/Python-E03/stock-prediction-teamrando#overview)
+ - [Features](https://github.com/Python-E03/stock-prediction-teamrando#features)
+ - [Stock Prediction App](https://github.com/Python-E03/stock-prediction-teamrando#stock-prediction-app)
+ - [Chatbot App](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Chatbot_App.md#chatbot-app)
+ - [RESTful API](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/RESTful_API.md#restful-api)
+ - [Tech Stack](https://github.com/Python-E03/stock-prediction-teamrando#tech-stack)
+ - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando#getting-started)
+ - [Prerequisites]()
+ - [Installation]()
+ - [interface page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/interface_page.md#interface-page)
+ - [login sign_up page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/login_sign_up_page.md#login-sign-up-page)
+ - [Home page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Home_page.md#home-page)
+ - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Getting_Started.md#getting-started)
+ - [License]()
+ - [Authors and Acknowledgment]()
+ - [🚀 About us](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/About_us.md#-about-us)
+ - [Hi we use github](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/WE_USE_GITHUB.md#hi-we-use-github-)
 
 
 ## 🔗 Links
