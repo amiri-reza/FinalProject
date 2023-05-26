@@ -58,7 +58,7 @@ Detailed prerequisites and system requirements (e.g., Python version, Django ver
  - [Stock Prediction App](https://github.com/Python-E03/stock-prediction-teamrando#stock-prediction-app)
  - [Tech Stack](https://github.com/Python-E03/stock-prediction-teamrando#tech-stack)
  - [interface page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/interface_page.md#interface-page)
- - [Home page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/H- [interface page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/interface_page.md#interface-page)ome_page.md#home-page)
+ - [Home page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Home_page.md#home-page)
  - [login sign_up page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/login_sign_up_page.md#login-sign-up-page)
  - [Stock Prediction Tool](https://github.com/Python-E03/stock-prediction-teamrando/edit/master/Documentation/User_interface_Stock_Prediction_Tool.md#user-interface-stock-prediction-tool)
  - [Chatbot App](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Chatbot_App.md#chatbot-app)
