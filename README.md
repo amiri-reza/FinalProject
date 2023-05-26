@@ -10,9 +10,6 @@ Built using cutting-edge technologies such as Python, Django, Django all-auth, P
 
 
 
-
-
-
 ## Features
 
 Interactive Visualizations: This feature would provide a more user-friendly approach to understanding stock data. Interactive charts would allow users to zoom, pan, and hover over data points to get more detailed information.
@@ -49,8 +46,6 @@ Our web application’s interface was developed using HTML, CSS, and JavaScript,
 - NLP: Spacy
 
 
-  
-
 ## Prerequisites
 
 Detailed prerequisites and system requirements (e.g., Python version, Django version, etc.)
@@ -65,14 +60,13 @@ Detailed prerequisites and system requirements (e.g., Python version, Django ver
  - [RESTful API](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/RESTful_API.md#restful-api)
  - [Tech Stack](https://github.com/Python-E03/stock-prediction-teamrando#tech-stack)
  - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando#getting-started)
- - [Prerequisites]()
- - [Installation]()
+ - [Stock Prediction Tool](https://github.com/Python-E03/stock-prediction-teamrando/edit/master/Documentation/User_interface_Stock_Prediction_Tool.md#user-interface-stock-prediction-tool)
  - [interface page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/interface_page.md#interface-page)
  - [login sign_up page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/login_sign_up_page.md#login-sign-up-page)
  - [Home page](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Home_page.md#home-page)
  - [Getting Started](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/Getting_Started.md#getting-started)
  - [License]()
- - [Authors and Acknowledgment]()
+
  - [🚀 About us](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/About_us.md#-about-us)
  - [Hi we use github](https://github.com/Python-E03/stock-prediction-teamrando/blob/master/Documentation/WE_USE_GITHUB.md#hi-we-use-github-)
 
