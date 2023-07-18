@@ -12,7 +12,7 @@ from django.http import JsonResponse
 from .chatbot import ChatBotSpacy
 from django.contrib import messages
 import os
-
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 class StockFormView(LoginRequiredMixin, FormView):
     template_name = "mytrading/home.html"
@@ -22,10 +22,19 @@ class StockFormView(LoginRequiredMixin, FormView):
     def read_ticker_file(self, request):
         ticker = request.POST.get("ticker")
         curr = os.getcwd()
-        file_path = os.path.join(curr, "static", "txt", "NASDAQ.txt")
-        with open(file_path, "r") as file:
-            lines = file.readlines()
-        ticker_list = [tuple(line.strip().split("\t")) for line in lines]
+        print(curr)
+        file_path = os.path.join(curr, 'static', 'txt', 'NASDAQ.txt')
+        file_path2 = staticfiles_storage.path('txt/NASDAQ.txt')
+        s=staticfiles_storage
+        print(file_path2, "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§")
+        try:
+            with open(file_path2, "r") as file:
+                print(file, "_________________________________________________________")
+                lines = file.readlines()
+            ticker_list = [tuple(line.strip().split("\t")) for line in lines]
+        except:
+            ticker_list = []
+        
         for symbol, company in ticker_list:
             if symbol == ticker.upper():
                 return company
